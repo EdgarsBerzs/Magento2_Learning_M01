@@ -4,7 +4,6 @@ namespace Magebit\PageListWidget\Block;
 
 
 use Magebit\PageListWidget\Model\Config\Source;
-use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Widget\Block\BlockInterface;

@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()) :?>
+<div class="box-tocart">
+    <div class="fieldset">
+        <?php if ($block->shouldRenderQuantity()) :?>
+        <div class="field qty">
+            <div class="control" id="qty-counter" data-bind="scope: 'qty-counter'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <script type="text/x-magento-init">
+                    {
+                        "#qty-counter": {
+                            "Magento_Ui/js/core/app": {
+                               "components": {
+                                    "qty-counter": {
+                                        "component": "Magento_Catalog/js/qty-counter"
+
+                }
+            }
+        }
+    }
+}
+                </script>
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="8.005" viewBox="0 0 11 8.005"><defs><style>.a{fill:#575757;}</style></defs><g transform="translate(-32.369 -34.185)"><path class="a" d="M43.324,35.378,36.5,42.145a.156.156,0,0,1-.218,0L32.413,38.3a.152.152,0,0,1,0-.215l.941-.933a.155.155,0,0,1,.217,0l2.823,2.8,5.771-5.725a.154.154,0,0,1,.218,0l.941.933A.152.152,0,0,1,43.324,35.378Z" transform="translate(0 0)"/></g></svg>
+                <?php if ($block->displayProductStockStatus()) :?>
+                    <?php if ($_product->isAvailable()) :?>
+                        <div class="stock available" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                            <span><?= $block->escapeHtml(__('In stock')) ?></span>
+                        </div>
+                    <?php else :?>
+                        <div class="stock unavailable" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                            <span><?= $block->escapeHtml(__('Out of stock')) ?></span>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button" disabled>
+                <span><?= $block->escapeHtml($buttonTitle) ?></span>
+            </button>
+            <?= $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>

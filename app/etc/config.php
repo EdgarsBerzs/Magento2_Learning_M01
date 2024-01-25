@@ -346,7 +346,6 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Magento_WishlistSampleData' => 1,
-        'Magebit_Learning' => 1,
         'Magebit_PageListWidget' => 1,
         'ModuleTest_FirstLayout' => 1,
         'ModuleTest_FirstModule' => 1,

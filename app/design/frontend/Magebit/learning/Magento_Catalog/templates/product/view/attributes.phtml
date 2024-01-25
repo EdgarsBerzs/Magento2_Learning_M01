@@ -1,0 +1,45 @@
+<?php
+
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Catalog\Block\Product\View\Attributes  $block */
+
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+$_additional = $block->getAdditionalData();
+//Filters through the attributes to retrieve the 3 defined ones.
+
+$attributesToDisplay = ['dimensions', 'color', 'material'];
+$filteredAttributes = array_filter($_additional, function ($attr) use ($attributesToDisplay) {
+    return in_array($attr['code'], $attributesToDisplay);
+});
+
+//Adds other attributes if any of the defined attributes are not present
+
+if(count($filteredAttributes) < count($attributesToDisplay)) {
+    foreach ($_additional as $value) {
+        if(!in_array($value, $filteredAttributes)) {
+            $filteredAttributes[] = $value;
+            if(count($filteredAttributes) >= count($attributesToDisplay)){
+                break;
+            }
+        }
+    }
+}
+
+?>
+
+<div class="additional-attributes-wrapper table-wrapper">
+    <ul class="data table additional-attributes" id="product-attribute-specs-table">
+        <?php foreach ($filteredAttributes as $attribute) : ?>
+            <li>
+                <span class="col label"><?= "{$block->escapeHtml($attribute['label'])}: " ?></span>
+                <span class="col data">
+                    <?= /* @noEscape */ $_helper->productAttribute($_product, $attribute['value'], $attribute['code']) ?>
+                </span>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+    <?php  if(!empty($_additional['short_description']['value'])):?>
+    <p><?= $block->escapeHtml(strip_tags($_additional['short_description']['value'])) ?></p>
+    <?php endif ?>
+</div>

@@ -4,5 +4,10 @@
     <body>
         <referenceBlock name="view.addto.compare" remove="true"/>
         <referenceBlock name="view.addto.wishlist" remove="true"/>
+        <referenceBlock name="product.info.details" remove="true"/>
+        <referenceBlock name="product.info.overview" remove="true"/>
+        <move element="product.attributes" destination="product.info.main" after="product.info.price"/>
+        <move element="product.info.overview" destination="product.info.main" after="product.info.price"/>
+        <move element="product.info.upsell" destination="product.info.main" after="product.info.addtocart"/>
     </body>
 </page>

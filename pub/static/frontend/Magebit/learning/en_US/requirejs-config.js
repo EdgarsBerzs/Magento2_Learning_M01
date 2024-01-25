@@ -1101,6 +1101,17 @@ var config = {
 
 require.config(config);
 })();
+(function() {
+var config = {
+    map: {
+        '*': {
+            'qty-counter': 'Magento_Catalog/js/qty-counter'
+        }
+    }
+};
+
+require.config(config);
+})();
 
 
 

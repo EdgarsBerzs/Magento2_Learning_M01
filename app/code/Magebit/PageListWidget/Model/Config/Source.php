@@ -5,6 +5,7 @@ namespace Magebit\PageListWidget\Model\Config;
 use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Data\OptionSourceInterface;
+use Magento\Framework\Exception\LocalizedException;
 
 class Source implements OptionSourceInterface
 {
@@ -26,6 +27,10 @@ class Source implements OptionSourceInterface
     }
 
 
+    /**
+     * @return array
+     * @throws LocalizedException
+     */
     public function toOptionArray(): array
     {
         $options = [];

@@ -16427,11 +16427,229 @@ button.braintree-googlepay-button.black.long {
 #braintree_cc_number {
   padding-left: 68px;
 }
+.reviews-actions a {
+  color: #ff5501;
+}
 .reviews-actions span {
-  color: #FF5501;
+  color: #ff5501;
+  font-size: 1.2rem;
 }
 .reviews-actions .add {
+  font-size: 1.2rem;
+  border: solid #333333 1px;
   color: black;
-  border: solid black 2px;
+  padding: 6px 10px 5px 10px;
+}
+.product-reviews-summary .rating-summary {
+  margin-right: 0.339vw;
+}
+.product-reviews-summary .reviews-actions a:not(:last-child) {
+  margin-right: 20px;
+}
+.product-info-main .product-info-price {
+  border: none;
+  display: flex;
+  align-items: center;
+}
+.product-info-main .product-info-price .product-info-stock-sku {
+  padding-left: 20px;
+}
+.product-info-main .product-info-price .product-info-stock-sku .stock.available {
+  display: none;
+}
+h1 {
+  font-weight: 600;
+  font-size: 3.2rem;
+}
+.product-info-main .product.attribute.overview {
+  background-color: #F9F9F9;
+  margin: 0;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.additional-attributes-wrapper.table-wrapper {
+  background-color: #F9F9F9;
+  margin-bottom: 0;
+  padding: 20px 0 0 0;
+}
+.additional-attributes-wrapper.table-wrapper p {
+  padding: 0 20px 0 20px;
+  font-size: 1.2rem;
+}
+.additional-attributes-wrapper.table-wrapper .table {
+  margin-bottom: 0;
+}
+.col.label {
+  font-weight: bold;
+}
+.box-tocart .action.tocart {
+  background-color: #ff5501;
+  border: #ff5501;
+  width: 100%;
+}
+.box-tocart .action.tocart:hover {
+  background-color: #ff5501;
+  border: #ff5501;
+}
+.block-title.title {
+  border-bottom: 1px solid #c2c2c2;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+.products.wrapper.grid.products-grid.products-upsell {
+  margin-top: 0;
+  margin-bottom: 20vh;
+}
+.products.wrapper.grid.products-grid.products-upsell .products {
+  margin-top: 0;
+}
+.product-item-details.upsell {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 15px;
+}
+.product-item-details.upsell .product-item-link {
+  font-weight: 600 !important;
+  font-size: 1.6rem;
+}
+.product-items {
+  width: 100%;
+}
+.product-items .item.product.product-item.upsell {
+  width: 100% !important;
+}
+.product-item-info.upsell {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.product-item-info.upsell a .product-image-container {
+  width: 88px !important;
+}
+.product-item-info.upsell .action.primary,
+.product-item-info.upsell .action.primary:hover {
+  background-color: #333333;
+  border: #333333;
+  font-size: 1.4rem;
+  width: 70%;
+}
+@media only screen and (max-width: 600px) {
+  .product-item-info.upsell .action.primary,
+  .product-item-info.upsell .action.primary:hover {
+    font-size: 1.2rem;
+  }
+}
+.products-grid .product-item-info:hover,
+.products-grid .product-item-info.active {
+  background: none;
+  box-shadow: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+  z-index: 0;
+}
+.products.wrapper.grid.products-grid.products-related {
+  height: 100%;
+}
+.products.wrapper.grid.products-grid.products-related li {
+  margin-right: 12px;
+  width: 19%;
+  height: 340px;
+}
+.products.wrapper.grid.products-grid.products-related li:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.products.wrapper.grid.products-grid.products-related li:hover .actions-primary {
+  display: block;
+}
+.products.wrapper.grid.products-grid.products-related li .product-item-info.relatedrelated-available {
+  padding-left: 5%;
+  width: 90%;
+}
+.products.wrapper.grid.products-grid.products-related li .product-item-info.relatedrelated-available .product-item-photo {
+  display: flex;
+  justify-content: center;
+}
+.products.wrapper.grid.products-grid.products-related li .product-item-details strong > a {
+  font-weight: bold;
+}
+.products.wrapper.grid.products-grid.products-related li .product-item-details .product-reviews-summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.products.wrapper.grid.products-grid.products-related li .product-item-details .price {
+  font-size: 2.2rem;
+}
+@media only screen and (max-width: 600px) {
+  .products.wrapper.grid.products-grid.products-related li {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    height: 400px;
+    width: 100%;
+  }
+}
+.products.wrapper.grid.products-grid.products-related .actions-primary {
+  display: none;
+}
+.products.wrapper.grid.products-grid.products-related .action.primary {
+  background-color: #ff5501;
+  border: #ff5501;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+}
+.block.related {
+  margin-bottom: 50px;
+}
+.block.related .block-title.title {
+  display: flex;
+  width: 100%;
+}
+.block.related .block-title.title #block-related-heading {
+  font-size: 24px;
+  font-weight: 600;
+}
+.control {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  vertical-align: center;
+}
+.control .stock.available {
+  height: 52px;
+  line-height: 52px;
+}
+.control svg {
+  padding: 0 4px 0 20px;
+}
+.input-group {
+  display: flex;
+  flex-direction: row;
+}
+.input-group span button {
+  border: solid #C2C2C2 1px;
+  width: 52px;
+  height: 52px;
+  border-radius: 0;
+  background-color: white;
+  font-size: 2rem;
+}
+.input-group span button:hover {
+  color: #ff5501;
+}
+.input-group input {
+  border: solid #C2C2C2 1px;
+  height: 52px;
+  width: 86px;
+  border-radius: 0;
+  text-align: center;
+}
+.input-group input:focus {
+  box-shadow: none;
 }
 /*# sourceMappingURL=pub/static/frontend/Magebit/learning/en_US/css/styles-m.css.map */
