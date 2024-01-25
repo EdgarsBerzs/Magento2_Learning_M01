@@ -145,3 +145,4 @@
 [2024-01-18T14:20:58.194018+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/css/pub/static/frontend/Magebit/learning/en_US/css/styles-m.css.map' [] []
 [2024-01-18T14:20:58.194030+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/css/pub/static/frontend/Magebit/learning/en_US/css/styles-l.css.map' [] []
 [2024-01-18T14:20:58.194850+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/css/pub/static/frontend/Magebit/learning/en_US/css/styles-l.css.map' [] []
+[2024-01-25T12:11:34.737430+00:00] main.DEBUG: cache_invalidate:  {"method":"GET","url":"http:/","invalidateInfo":{"tags":["FPC"],"mode":"matchingTag"}} []
