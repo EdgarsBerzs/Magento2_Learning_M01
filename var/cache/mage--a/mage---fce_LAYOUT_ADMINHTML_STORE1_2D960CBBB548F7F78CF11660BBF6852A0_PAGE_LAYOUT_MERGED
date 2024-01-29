@@ -1,0 +1,2 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706257040;s:6:"expire";i:1737793040;s:4:"tags";s:70:"fce_ADMINHTML_WIDGET_LOADOPTIONS,fce_LAYOUT_GENERAL_CACHE_TAG,fce_MAGE";}
+{"pageLayout":"","layout":"<container name=\"root\">\n   <block class=\"Magento\\Widget\\Block\\Adminhtml\\Widget\\Options\" name=\"wysiwyg_widget.options\"\/>\n<\/container>\n"}
