@@ -6,6 +6,7 @@
         <referenceBlock name="view.addto.wishlist" remove="true"/>
         <referenceBlock name="product.info.details" remove="true"/>
         <referenceBlock name="product.info.overview" remove="true"/>
+        <referenceBlock name="product.info.simple" remove="true"/>
         <move element="product.attributes" destination="product.info.main" after="product.info.price"/>
         <move element="product.info.overview" destination="product.info.main" after="product.info.price"/>
         <move element="product.info.upsell" destination="product.info.main" after="product.info.addtocart"/>

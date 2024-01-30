@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Magebit\PageListWidget\Model\Config;
 
 use Magento\Cms\Api\PageRepositoryInterface;
@@ -11,21 +13,13 @@ class Source implements OptionSourceInterface
 {
 
     /**
-     * @var PageRepositoryInterface
+     * @param PageRepositoryInterface $pageRepository
+     * @param SearchCriteriaBuilder $searchCriteriaBuilder
      */
-    protected PageRepositoryInterface $pageRepository;
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    protected SearchCriteriaBuilder $searchCriteriaBuilder;
-
-    public function __construct(PageRepositoryInterface $pageRepository, SearchCriteriaBuilder $searchCriteriaBuilder)
+    public function __construct(public PageRepositoryInterface $pageRepository, public SearchCriteriaBuilder $searchCriteriaBuilder)
     {
-        $this->pageRepository = $pageRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-    }
 
+    }
 
     /**
      * @return array
@@ -35,11 +29,10 @@ class Source implements OptionSourceInterface
     {
         $options = [];
 
-        $searchCriteria = $this->searchCriteriaBuilder->create();
+        $searchCriteria = $this->searchCriteriaBuilder->addFilter('is_active', true)->create();
         $pages = $this->pageRepository->getList($searchCriteria)->getItems();
 
-        foreach ($pages as $page)
-        {
+        foreach ($pages as $page) {
             $options[] = ['value' => $page->getIdentifier(), 'label' => $page->getTitle()];
         }
 
