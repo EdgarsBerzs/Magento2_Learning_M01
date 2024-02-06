@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-    <widget id="page_list_test" class="Magebit\PageListWidget\Block\PageList">
+    <widget id="page_list_test" class="Magebit\PageListWidget\Block\Widget\PageList">
         <label>PageListWidget</label>
         <description>This is a page list widget!</description>
         <parameters>

@@ -13,7 +13,7 @@ define([
             this._super()
                 .observe('qty');
 
-            return this;
+            return this & this.qty(1);
         },
 
         getDataValidator: function () {
@@ -21,7 +21,7 @@ define([
         },
 
         addQty: function () {
-            let qty
+            let qty;
 
             if (isNaN(this.qty())) {
                 qty = 1;

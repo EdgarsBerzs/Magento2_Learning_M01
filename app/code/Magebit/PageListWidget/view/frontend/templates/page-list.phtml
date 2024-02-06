@@ -1,13 +1,19 @@
-<?php
-/** @var \Magebit\PageListWidget\Block\PageList $block */
-/** @var \Magento\Framework\Escaper $escaper */
+<?php declare(strict_types = 1);
 
-$Urls = $block->getSelectedPagesArray();
+use Magebit\PageListWidget\Block\Widget\PageList;
+use Magento\Framework\Escaper;
+
+/** @var PageList $block */
+/** @var Escaper $escaper */
+
+$urls = $block->getSelectedPagesArray();
 ?>
 
-<h2><?= $escaper->escapeHtml($block->getData('title')) ?></h2>
-<ul>
-    <?php foreach ($Urls as $url): ?>
-        <li><a href=<?= $escaper->escapeHtml($url['value']) ?>><?=$escaper->escapeHtml($url['label'])?></a></li>
-    <?php endforeach; ?>
-</ul>
+<div>
+    <h2><?= $escaper->escapeHtml($block->getData('title')) ?></h2>
+    <ul>
+        <?php foreach ($urls as $url): ?>
+            <li><a href=<?= $escaper->escapeHtml($url['value']) ?>><?=$escaper->escapeHtml($url['label'])?></a></li>
+        <?php endforeach; ?>
+    </ul>
+</div>
