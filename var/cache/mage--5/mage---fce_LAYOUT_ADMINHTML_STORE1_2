@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"tags";s:37:"fce_LAYOUT_GENERAL_CACHE_TAG,fce_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1708000727;s:6:"expire";i:1739536727;s:4:"tags";s:37:"fce_LAYOUT_GENERAL_CACHE_TAG,fce_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="adminhtml_system_config_edit" layout="admin-2columns-left"><body>
    <referenceContainer name="js">
@@ -1484,7 +1484,335 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       </block>
    </block>
 </container>
-</layout><layout id="CATALOG_PRODUCT_COMPOSITE_CONFIGURE"><container name="root">
+</layout><handle id="default"><body>
+   <referenceContainer name="legal.system">
+      <block class="Magento\Framework\View\Element\Template" name="session.activity.link" template="Magento_Security::page/activity_link.phtml" before="report" ifconfig="admin/security/admin_account_sharing"/>
+   </referenceContainer>
+</body>
+</handle><handle id="security_session_activity" layout="admin-popup"><head>
+   <css src="Magento_Security::css/activity.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Security\Block\Adminhtml\Session\Activity" name="session.activity" template="Magento_Security::session/activity.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="adminhtml_dashboard_index"><body>
+   <referenceBlock name="dashboard">
+      <block class="Magento\Search\Block\Adminhtml\Dashboard\Last" name="dashboard.lastSearches" as="lastSearches"/>
+      <block class="Magento\Search\Block\Adminhtml\Dashboard\Top" name="dashboard.topSearches" as="topSearches"/>
+   </referenceBlock>
+</body>
+</handle><handle id="search_synonyms_edit"><update handle="styles"/>
+<body>
+   <referenceContainer name="content">
+      <uiComponent name="search_synonyms_form"/>
+   </referenceContainer>
+</body>
+</handle><handle id="search_synonyms_index"><update handle="styles"/>
+<body>
+   <referenceContainer name="content">
+      <uiComponent name="search_synonyms_grid"/>
+   </referenceContainer>
+</body>
+</handle><handle id="search_synonyms_new"><update handle="search_synonyms_edit"/>
+<body/>
+</handle><handle id="search_term_block"><body>
+   <referenceBlock name="search.term.grid.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.report.search.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">searchReportGrid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
+            <argument name="default_sort" xsi:type="string">query_id</argument>
+            <argument name="default_dir" xsi:type="string">DESC</argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.report.search.grid.export" as="grid.export">
+            <arguments>
+               <argument name="exportTypes" xsi:type="array">
+                  <item name="csv" xsi:type="array">
+                     <item name="urlPath" xsi:type="string">*/*/exportSearchCsv</item>
+                     <item name="label" translate="true" xsi:type="string">CSV</item>
+                  </item>
+                  <item name="excel" xsi:type="array">
+                     <item name="urlPath" xsi:type="string">*/*/exportSearchExcel</item>
+                     <item name="label" translate="true" xsi:type="string">Excel XML</item>
+                  </item>
+               </argument>
+            </arguments>
+         </block>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="adminhtml.report.search.grid.columnSet">
+            <arguments>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string">catalog/search/edit</item>
+                  <item name="extraParamsTemplate" xsi:type="array">
+                     <item name="id" xsi:type="string">getId</item>
+                  </item>
+               </argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_id" as="query_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">ID</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">query_id</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="column_css_class" xsi:type="string">col-id</argument>
+                  <argument name="header_css_class" xsi:type="string">col-id</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_text" as="query_text">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
+                  <argument name="index" xsi:type="string">query_text</argument>
+                  <argument name="column_css_class" xsi:type="string">col-query</argument>
+                  <argument name="header_css_class" xsi:type="string">col-query</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.report.search.grid.columnSet.store_id" as="store_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Store</argument>
+                  <argument name="index" xsi:type="string">store_id</argument>
+                  <argument name="type" xsi:type="string">store</argument>
+                  <argument name="store_all" xsi:type="string">1</argument>
+                  <argument name="store_view" xsi:type="string">1</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="column_css_class" xsi:type="string">col-store</argument>
+                  <argument name="header_css_class" xsi:type="string">col-store</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.num_results" as="num_results">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Results</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="index" xsi:type="string">num_results</argument>
+                  <argument name="column_css_class" xsi:type="string">col-results</argument>
+                  <argument name="header_css_class" xsi:type="string">col-results</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.popularity" as="popularity">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Hits</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="index" xsi:type="string">popularity</argument>
+                  <argument name="column_css_class" xsi:type="string">col-hits</argument>
+                  <argument name="header_css_class" xsi:type="string">col-hits</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="search_term_edit"><body>
+   <referenceContainer name="content">
+      <block class="Magento\Search\Block\Adminhtml\Term\Edit" name="adminhtml.search.term.edit"/>
+   </referenceContainer>
+</body>
+</handle><handle id="search_term_exportsearchcsv"><update handle="formkey"/>
+<update handle="search_term_report_block"/>
+<body>
+   <block class="Magento\Backend\Block\Widget\Grid\Container" name="report.search.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</body>
+</handle><handle id="search_term_exportsearchexcel"><update handle="formkey"/>
+<update handle="search_term_report_block"/>
+<body>
+   <block class="Magento\Backend\Block\Widget\Grid\Container" name="report.search.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</body>
+</handle><handle id="search_term_grid_block"><body>
+   <referenceBlock name="adminhtml.search.term.grid.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.catalog.search.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">search_term_grid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
+            <argument name="default_sort" xsi:type="string">name</argument>
+            <argument name="default_dir" xsi:type="string">ASC</argument>
+            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="adminhtml.catalog.search.grid.massaction" as="grid.massaction">
+            <arguments>
+               <argument name="massaction_id_field" xsi:type="string">query_id</argument>
+               <argument name="form_field_name" xsi:type="string">search</argument>
+               <argument name="use_select_all" xsi:type="string">1</argument>
+               <argument name="options" xsi:type="array">
+                  <item name="delete" xsi:type="array">
+                     <item name="label" translate="true" xsi:type="string">Delete</item>
+                     <item name="url" xsi:type="string">*/*/massDelete</item>
+                     <item name="confirm" translate="true" xsi:type="string">Are you sure?</item>
+                  </item>
+               </argument>
+            </arguments>
+         </block>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.catalog.search.grid.columnSet" as="grid.columnSet">
+            <arguments>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string">*/*/edit</item>
+                  <item name="extraParamsTemplate" xsi:type="array">
+                     <item name="id" xsi:type="string">getId</item>
+                  </item>
+               </argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.search_query" as="search_query">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
+                  <argument name="index" xsi:type="string">query_text</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.catalog.search.grid.columnSet.store_id" as="store_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Store</argument>
+                  <argument name="type" xsi:type="string">store</argument>
+                  <argument name="id" xsi:type="string">store_id</argument>
+                  <argument name="index" xsi:type="string">store_id</argument>
+                  <argument name="store_view" xsi:type="string">1</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.num_results" as="num_results">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Results</argument>
+                  <argument name="index" xsi:type="string">num_results</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.popularity" as="popularity">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Uses</argument>
+                  <argument name="index" xsi:type="string">popularity</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.redirect" as="redirect">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Redirect URL</argument>
+                  <argument name="index" xsi:type="string">redirect</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.display_in_terms" as="display_in_terms">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Suggested Terms</argument>
+                  <argument name="sortable" xsi:type="string">1</argument>
+                  <argument name="index" xsi:type="string">display_in_terms</argument>
+                  <argument name="type" xsi:type="string">options</argument>
+                  <argument name="options" model="Magento\Config\Model\Config\Source\Yesno" xsi:type="options"/>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.action" as="action">
+               <arguments>
+                  <argument name="type" xsi:type="string">action</argument>
+                  <argument name="header" translate="true" xsi:type="string">Action</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">query_id</argument>
+                  <argument name="actions" xsi:type="array">
+                     <item name="edit" xsi:type="array">
+                        <item name="caption" translate="true" xsi:type="string">Edit</item>
+                        <item name="url" xsi:type="array">
+                           <item name="base" xsi:type="string">*/*/edit</item>
+                        </item>
+                        <item name="field" xsi:type="string">id</item>
+                     </item>
+                  </argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="search_term_index"><update handle="search_term_grid_block"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Search\Block\Adminhtml\Term" name="adminhtml.search.term.grid.container"/>
+   </referenceContainer>
+</body>
+</handle><handle id="search_term_report"><update handle="search_term_report_block"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Search\Block\Adminhtml\Reports\Search" name="report.search.grid.container"/>
+   </referenceContainer>
+</body>
+</handle><handle id="search_term_report_block"><body>
+   <referenceBlock name="report.search.grid.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.report.search.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">searchReportGrid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
+            <argument name="default_sort" xsi:type="string">query_id</argument>
+            <argument name="default_dir" xsi:type="string">DESC</argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.report.search.grid.export" as="grid.export">
+            <arguments>
+               <argument name="exportTypes" xsi:type="array">
+                  <item name="csv" xsi:type="array">
+                     <item name="urlPath" xsi:type="string">*/*/exportSearchCsv</item>
+                     <item name="label" translate="true" xsi:type="string">CSV</item>
+                  </item>
+                  <item name="excel" xsi:type="array">
+                     <item name="urlPath" xsi:type="string">*/*/exportSearchExcel</item>
+                     <item name="label" translate="true" xsi:type="string">Excel XML</item>
+                  </item>
+               </argument>
+            </arguments>
+         </block>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="adminhtml.report.search.grid.columnSet">
+            <arguments>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string">search/term/edit</item>
+                  <item name="extraParamsTemplate" xsi:type="array">
+                     <item name="id" xsi:type="string">getId</item>
+                  </item>
+               </argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_id" as="query_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">ID</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">query_id</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="column_css_class" xsi:type="string">col-id</argument>
+                  <argument name="header_css_class" xsi:type="string">col-id</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_text" as="query_text">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
+                  <argument name="index" xsi:type="string">query_text</argument>
+                  <argument name="column_css_class" xsi:type="string">col-query</argument>
+                  <argument name="header_css_class" xsi:type="string">col-query</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.report.search.grid.columnSet.store_id" as="store_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Store</argument>
+                  <argument name="index" xsi:type="string">store_id</argument>
+                  <argument name="type" xsi:type="string">store</argument>
+                  <argument name="store_all" xsi:type="string">1</argument>
+                  <argument name="store_view" xsi:type="string">1</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="column_css_class" xsi:type="string">col-store</argument>
+                  <argument name="header_css_class" xsi:type="string">col-store</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.num_results" as="num_results">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Results</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="index" xsi:type="string">num_results</argument>
+                  <argument name="column_css_class" xsi:type="string">col-results</argument>
+                  <argument name="header_css_class" xsi:type="string">col-results</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.popularity" as="popularity">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Hits</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="index" xsi:type="string">popularity</argument>
+                  <argument name="column_css_class" xsi:type="string">col-hits</argument>
+                  <argument name="header_css_class" xsi:type="string">col-hits</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><layout id="CATALOG_PRODUCT_COMPOSITE_CONFIGURE"><container name="root">
    <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Fieldset" name="product.composite.fieldset">
       <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Fieldset\Options" name="product.composite.fieldset.options" template="Magento_Catalog::catalog/product/composite/fieldset/options.phtml">
          <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" name="product.composite.fieldset.options.default" as="default" template="Magento_Catalog::catalog/product/composite/fieldset/options/type/default.phtml"/>
@@ -1841,334 +2169,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       </arguments>
    </block>
 </body>
-</handle><handle id="default"><body>
-   <referenceContainer name="legal.system">
-      <block class="Magento\Framework\View\Element\Template" name="session.activity.link" template="Magento_Security::page/activity_link.phtml" before="report" ifconfig="admin/security/admin_account_sharing"/>
-   </referenceContainer>
-</body>
-</handle><handle id="security_session_activity" layout="admin-popup"><head>
-   <css src="Magento_Security::css/activity.css"/>
-</head>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Security\Block\Adminhtml\Session\Activity" name="session.activity" template="Magento_Security::session/activity.phtml"/>
-   </referenceContainer>
-</body>
-</handle><handle id="adminhtml_dashboard_index"><body>
-   <referenceBlock name="dashboard">
-      <block class="Magento\Search\Block\Adminhtml\Dashboard\Last" name="dashboard.lastSearches" as="lastSearches"/>
-      <block class="Magento\Search\Block\Adminhtml\Dashboard\Top" name="dashboard.topSearches" as="topSearches"/>
-   </referenceBlock>
-</body>
-</handle><handle id="search_synonyms_edit"><update handle="styles"/>
-<body>
-   <referenceContainer name="content">
-      <uiComponent name="search_synonyms_form"/>
-   </referenceContainer>
-</body>
-</handle><handle id="search_synonyms_index"><update handle="styles"/>
-<body>
-   <referenceContainer name="content">
-      <uiComponent name="search_synonyms_grid"/>
-   </referenceContainer>
-</body>
-</handle><handle id="search_synonyms_new"><update handle="search_synonyms_edit"/>
-<body/>
-</handle><handle id="search_term_block"><body>
-   <referenceBlock name="search.term.grid.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.report.search.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">searchReportGrid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
-            <argument name="default_sort" xsi:type="string">query_id</argument>
-            <argument name="default_dir" xsi:type="string">DESC</argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.report.search.grid.export" as="grid.export">
-            <arguments>
-               <argument name="exportTypes" xsi:type="array">
-                  <item name="csv" xsi:type="array">
-                     <item name="urlPath" xsi:type="string">*/*/exportSearchCsv</item>
-                     <item name="label" translate="true" xsi:type="string">CSV</item>
-                  </item>
-                  <item name="excel" xsi:type="array">
-                     <item name="urlPath" xsi:type="string">*/*/exportSearchExcel</item>
-                     <item name="label" translate="true" xsi:type="string">Excel XML</item>
-                  </item>
-               </argument>
-            </arguments>
-         </block>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="adminhtml.report.search.grid.columnSet">
-            <arguments>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string">catalog/search/edit</item>
-                  <item name="extraParamsTemplate" xsi:type="array">
-                     <item name="id" xsi:type="string">getId</item>
-                  </item>
-               </argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_id" as="query_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">ID</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">query_id</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="column_css_class" xsi:type="string">col-id</argument>
-                  <argument name="header_css_class" xsi:type="string">col-id</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_text" as="query_text">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
-                  <argument name="index" xsi:type="string">query_text</argument>
-                  <argument name="column_css_class" xsi:type="string">col-query</argument>
-                  <argument name="header_css_class" xsi:type="string">col-query</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.report.search.grid.columnSet.store_id" as="store_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Store</argument>
-                  <argument name="index" xsi:type="string">store_id</argument>
-                  <argument name="type" xsi:type="string">store</argument>
-                  <argument name="store_all" xsi:type="string">1</argument>
-                  <argument name="store_view" xsi:type="string">1</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="column_css_class" xsi:type="string">col-store</argument>
-                  <argument name="header_css_class" xsi:type="string">col-store</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.num_results" as="num_results">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Results</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="index" xsi:type="string">num_results</argument>
-                  <argument name="column_css_class" xsi:type="string">col-results</argument>
-                  <argument name="header_css_class" xsi:type="string">col-results</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.popularity" as="popularity">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Hits</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="index" xsi:type="string">popularity</argument>
-                  <argument name="column_css_class" xsi:type="string">col-hits</argument>
-                  <argument name="header_css_class" xsi:type="string">col-hits</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="search_term_edit"><body>
-   <referenceContainer name="content">
-      <block class="Magento\Search\Block\Adminhtml\Term\Edit" name="adminhtml.search.term.edit"/>
-   </referenceContainer>
-</body>
-</handle><handle id="search_term_exportsearchcsv"><update handle="formkey"/>
-<update handle="search_term_report_block"/>
-<body>
-   <block class="Magento\Backend\Block\Widget\Grid\Container" name="report.search.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</body>
-</handle><handle id="search_term_exportsearchexcel"><update handle="formkey"/>
-<update handle="search_term_report_block"/>
-<body>
-   <block class="Magento\Backend\Block\Widget\Grid\Container" name="report.search.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</body>
-</handle><handle id="search_term_grid_block"><body>
-   <referenceBlock name="adminhtml.search.term.grid.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.catalog.search.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">search_term_grid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
-            <argument name="default_sort" xsi:type="string">name</argument>
-            <argument name="default_dir" xsi:type="string">ASC</argument>
-            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="adminhtml.catalog.search.grid.massaction" as="grid.massaction">
-            <arguments>
-               <argument name="massaction_id_field" xsi:type="string">query_id</argument>
-               <argument name="form_field_name" xsi:type="string">search</argument>
-               <argument name="use_select_all" xsi:type="string">1</argument>
-               <argument name="options" xsi:type="array">
-                  <item name="delete" xsi:type="array">
-                     <item name="label" translate="true" xsi:type="string">Delete</item>
-                     <item name="url" xsi:type="string">*/*/massDelete</item>
-                     <item name="confirm" translate="true" xsi:type="string">Are you sure?</item>
-                  </item>
-               </argument>
-            </arguments>
-         </block>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.catalog.search.grid.columnSet" as="grid.columnSet">
-            <arguments>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string">*/*/edit</item>
-                  <item name="extraParamsTemplate" xsi:type="array">
-                     <item name="id" xsi:type="string">getId</item>
-                  </item>
-               </argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.search_query" as="search_query">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
-                  <argument name="index" xsi:type="string">query_text</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.catalog.search.grid.columnSet.store_id" as="store_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Store</argument>
-                  <argument name="type" xsi:type="string">store</argument>
-                  <argument name="id" xsi:type="string">store_id</argument>
-                  <argument name="index" xsi:type="string">store_id</argument>
-                  <argument name="store_view" xsi:type="string">1</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.num_results" as="num_results">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Results</argument>
-                  <argument name="index" xsi:type="string">num_results</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.popularity" as="popularity">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Uses</argument>
-                  <argument name="index" xsi:type="string">popularity</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.redirect" as="redirect">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Redirect URL</argument>
-                  <argument name="index" xsi:type="string">redirect</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.display_in_terms" as="display_in_terms">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Suggested Terms</argument>
-                  <argument name="sortable" xsi:type="string">1</argument>
-                  <argument name="index" xsi:type="string">display_in_terms</argument>
-                  <argument name="type" xsi:type="string">options</argument>
-                  <argument name="options" model="Magento\Config\Model\Config\Source\Yesno" xsi:type="options"/>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.search.grid.columnSet.action" as="action">
-               <arguments>
-                  <argument name="type" xsi:type="string">action</argument>
-                  <argument name="header" translate="true" xsi:type="string">Action</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">query_id</argument>
-                  <argument name="actions" xsi:type="array">
-                     <item name="edit" xsi:type="array">
-                        <item name="caption" translate="true" xsi:type="string">Edit</item>
-                        <item name="url" xsi:type="array">
-                           <item name="base" xsi:type="string">*/*/edit</item>
-                        </item>
-                        <item name="field" xsi:type="string">id</item>
-                     </item>
-                  </argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="search_term_index"><update handle="search_term_grid_block"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Search\Block\Adminhtml\Term" name="adminhtml.search.term.grid.container"/>
-   </referenceContainer>
-</body>
-</handle><handle id="search_term_report"><update handle="search_term_report_block"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Search\Block\Adminhtml\Reports\Search" name="report.search.grid.container"/>
-   </referenceContainer>
-</body>
-</handle><handle id="search_term_report_block"><body>
-   <referenceBlock name="report.search.grid.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.report.search.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">searchReportGrid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Search\Model\ResourceModel\Query\Collection</argument>
-            <argument name="default_sort" xsi:type="string">query_id</argument>
-            <argument name="default_dir" xsi:type="string">DESC</argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.report.search.grid.export" as="grid.export">
-            <arguments>
-               <argument name="exportTypes" xsi:type="array">
-                  <item name="csv" xsi:type="array">
-                     <item name="urlPath" xsi:type="string">*/*/exportSearchCsv</item>
-                     <item name="label" translate="true" xsi:type="string">CSV</item>
-                  </item>
-                  <item name="excel" xsi:type="array">
-                     <item name="urlPath" xsi:type="string">*/*/exportSearchExcel</item>
-                     <item name="label" translate="true" xsi:type="string">Excel XML</item>
-                  </item>
-               </argument>
-            </arguments>
-         </block>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="adminhtml.report.search.grid.columnSet">
-            <arguments>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string">search/term/edit</item>
-                  <item name="extraParamsTemplate" xsi:type="array">
-                     <item name="id" xsi:type="string">getId</item>
-                  </item>
-               </argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_id" as="query_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">ID</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">query_id</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="column_css_class" xsi:type="string">col-id</argument>
-                  <argument name="header_css_class" xsi:type="string">col-id</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.query_text" as="query_text">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Search Query</argument>
-                  <argument name="index" xsi:type="string">query_text</argument>
-                  <argument name="column_css_class" xsi:type="string">col-query</argument>
-                  <argument name="header_css_class" xsi:type="string">col-query</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column\Multistore" name="adminhtml.report.search.grid.columnSet.store_id" as="store_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Store</argument>
-                  <argument name="index" xsi:type="string">store_id</argument>
-                  <argument name="type" xsi:type="string">store</argument>
-                  <argument name="store_all" xsi:type="string">1</argument>
-                  <argument name="store_view" xsi:type="string">1</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="column_css_class" xsi:type="string">col-store</argument>
-                  <argument name="header_css_class" xsi:type="string">col-store</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.num_results" as="num_results">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Results</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="index" xsi:type="string">num_results</argument>
-                  <argument name="column_css_class" xsi:type="string">col-results</argument>
-                  <argument name="header_css_class" xsi:type="string">col-results</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.report.search.grid.columnSet.popularity" as="popularity">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Hits</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="index" xsi:type="string">popularity</argument>
-                  <argument name="column_css_class" xsi:type="string">col-hits</argument>
-                  <argument name="header_css_class" xsi:type="string">col-hits</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
 </handle><handle id="catalog_rule_promo_catalog_block"><body>
    <referenceBlock name="adminhtml.promo.catalog.grid.container">
       <block class="Magento\Backend\Block\Widget\Grid" name="promo.catalog.grid" as="grid">
@@ -2280,110 +2280,166 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
 </referenceBlock>
 </layout><handle id="cms_index_index" layout="2columns-left"><update handle="msrp_popup"/>
 <body/>
-</handle><handle id="adminhtml_order_shipment_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/shipment/create/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="adminhtml_order_shipment_view"><body>
-   <referenceBlock name="shipment_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="bundle" as="bundle" template="Magento_Bundle::sales/shipment/view/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_bundle"><head>
-   <css src="Magento_Bundle::css/bundle-product.css"/>
-</head>
-<body>
-   <referenceBlock name="product_tabs">
-      <action method="addTab">
-         <argument name="name" xsi:type="string">bundle</argument>
-         <argument name="block" xsi:type="string">Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_new"><body>
-   <referenceContainer name="js">
-      <block class="Magento\Framework\View\Element\Template" name="js.bundle_stock_disabler" template="Magento_Bundle::product/stock/disabler.phtml"/>
-   </referenceContainer>
-</body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="bundle" xsi:type="array">
-         <item name="prices" xsi:type="array">
-            <item name="tier_price" xsi:type="array">
-               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/tier_prices.phtml</item>
-            </item>
-            <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\Bundle\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/final_price.phtml</item>
-            </item>
-            <item name="bundle_option" xsi:type="array">
-               <item name="amount_render_template" xsi:type="string">Magento_Bundle::product/price/selection/amount.phtml</item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="catalog_product_view_type_bundle"><body>
-   <referenceBlock name="product.composite.fieldset">
-      <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Bundle" before="product.composite.fieldset.options" name="product.composite.fieldset.bundle" template="Magento_Bundle::product/composite/fieldset/options/bundle.phtml">
-         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Select" name="product.info.bundle.options.select" as="select"/>
-         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Multi" name="product.info.bundle.options.multi" as="multi"/>
-         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Radio" name="product.info.bundle.options.radio" as="radio"/>
-         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox"/>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_index_wishlist"><body>
-   <referenceBlock name="customer.wishlist.edit.tab">
-      <arguments>
-         <argument name="product_configuration_helpers" xsi:type="array">
-            <item name="bundle" xsi:type="string">Magento\Bundle\Helper\Catalog\Product\Configuration</item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/create/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/create/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_view"><body>
-   <referenceBlock name="creditmemo_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="creditmemo_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/view/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/create/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/create/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_view"><body>
-   <referenceBlock name="invoice_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="invoice_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/view/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\View\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/order/view/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
 </handle><handle id="adminhtml_system_config_edit"><body>
    <referenceContainer name="js">
       <block name="js.confirm_remove_old_urls" template="Magento_CatalogUrlRewrite::confirm.phtml"/>
    </referenceContainer>
 </body>
-</handle><handle id="sales_creditmemo_exportcsv"><update handle="sales_creditmemo_grid_block"/>
+</handle><layout id="media_gallery_index_index"><container name="root">
+   <block name="media.gallery.container" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::container.phtml" aclResource="Magento_Cms::media_gallery">
+      <container name="gallery.actions" htmlTag="div" htmlClass="page-main-actions">
+         <block name="page.actions.toolbar" template="Magento_Backend::pageactions.phtml"/>
+      </container>
+      <uiComponent name="media_gallery_listing"/>
+      <block name="image.details" class="Magento\MediaGalleryUi\Block\Adminhtml\ImageDetails" template="Magento_MediaGalleryUi::image_details.phtml">
+         <arguments>
+            <argument name="imageDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
+         </arguments>
+      </block>
+      <block name="image.edit.details" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::image_edit_details.phtml">
+         <arguments>
+            <argument name="imageEditDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
+            <argument name="saveDetailsUrl" path="media_gallery/image/saveDetails" xsi:type="url"/>
+         </arguments>
+      </block>
+   </block>
+</container>
+</layout><handle id="media_gallery_media_index"><body>
+   <referenceContainer htmlTag="div" htmlClass="media-gallery-container" name="content">
+      <uiComponent name="standalone_media_gallery_listing"/>
+      <block name="image.details" class="Magento\MediaGalleryUi\Block\Adminhtml\ImageDetailsStandalone" template="Magento_MediaGalleryUi::image_details_standalone.phtml">
+         <arguments>
+            <argument name="imageDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
+         </arguments>
+      </block>
+      <block name="image.edit.details" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::image_edit_details_standalone.phtml">
+         <arguments>
+            <argument name="imageEditDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
+            <argument name="saveDetailsUrl" path="media_gallery/image/saveDetails" xsi:type="url"/>
+         </arguments>
+      </block>
+   </referenceContainer>
+</body>
+</handle><handle id="adminhtml_integration_edit" layout="admin-2columns-left"><update handle="editor"/>
+<body>
+   <referenceContainer name="left">
+      <block class="Magento\Integration\Block\Adminhtml\Integration\Edit\Tabs" name="integration_edit_tabs">
+         <block class="Magento\Integration\Block\Adminhtml\Integration\Edit\Tab\Info" name="integration_edit_tab_info">
+            <block class="Magento\Integration\Block\Adminhtml\Integration\Tokens" name="integration_tokens"/>
+         </block>
+         <action method="addTab">
+            <argument name="name" xsi:type="string">info_section</argument>
+            <argument name="block" xsi:type="string">integration_edit_tab_info</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceContainer name="content">
+      <block class="Magento\Integration\Block\Adminhtml\Integration\Edit" name="integration_edit_content"/>
+   </referenceContainer>
+</body>
+</handle><layout id="adminhtml_integration_grid"><update handle="adminhtml_integration_grid_block"/>
+<container name="root">
+   <block class="Magento\Integration\Block\Adminhtml\Integration" name="integration.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</container>
+</layout><handle id="adminhtml_integration_grid_block"><body>
+   <referenceBlock name="integration.grid.container">
+      <block class="Magento\Integration\Block\Adminhtml\Integration\Grid" name="integration.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">integrationGrid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Integration\Model\ResourceModel\Integration\Collection</argument>
+            <argument name="use_ajax" xsi:type="string">1</argument>
+            <argument name="default_sort" xsi:type="string">integration_id</argument>
+            <argument name="default_dir" xsi:type="string">asc</argument>
+            <argument name="grid_url" path="*/*/grid" xsi:type="url">
+               <param name="_current">1</param>
+            </argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="integration.grid.columnSet">
+            <arguments>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string"/>
+               </argument>
+               <argument name="empty_text" translate="true" xsi:type="string">We couldn't find any records.</argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.name" as="name">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Name</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+                  <argument name="index" xsi:type="string">name</argument>
+                  <argument name="id" xsi:type="string">name</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Name</argument>
+                  <argument name="escape" xsi:type="string">1</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.status" as="status">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Status</argument>
+                  <argument name="type" xsi:type="string">options</argument>
+                  <argument name="options" model="Magento\Integration\Model\Integration\Source\Status" xsi:type="options"/>
+                  <argument name="index" xsi:type="string">status</argument>
+                  <argument name="id" xsi:type="string">status</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.activate" as="activate">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Activate</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Link\Activate</argument>
+                  <argument name="index" xsi:type="string">activate</argument>
+                  <argument name="id" xsi:type="string">activate</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.edit" as="edit">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Edit</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Button\Edit</argument>
+                  <argument name="index" xsi:type="string">edit</argument>
+                  <argument name="id" xsi:type="string">edit</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.delete" as="delete">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Delete</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Button\Delete</argument>
+                  <argument name="class" xsi:type="string">action delete</argument>
+                  <argument name="index" xsi:type="string">delete</argument>
+                  <argument name="id" xsi:type="string">delete</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="filter" xsi:type="string">0</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="adminhtml_integration_index"><update handle="adminhtml_integration_grid_block"/>
+<body>
+   <referenceBlock name="content">
+      <block class="Magento\Backend\Block\Template" name="integration.popup.container" template="Magento_Integration::integration/popup_container.phtml" before="-"/>
+      <block class="Magento\Integration\Block\Adminhtml\Integration" name="integration.grid.container"/>
+   </referenceBlock>
+</body>
+</handle><handle id="adminhtml_integration_new" layout="admin-2columns-left"><update handle="adminhtml_integration_edit"/>
+<body>
+   <referenceBlock name="content">
+      <block class="Magento\Backend\Block\Template" name="integration.popup.container" template="Magento_Integration::integration/popup_container.phtml" before="-"/>
+   </referenceBlock>
+</body>
+</handle><layout id="adminhtml_integration_permissionsdialog"><container name="root">
+   <block class="Magento\Backend\Block\Template" name="integration.activate.permissions" template="Magento_Integration::integration/activate/permissions.phtml">
+      <block class="Magento\Integration\Block\Adminhtml\Integration\Activate\Permissions\Tabs" name="integration.activate.permissions.tabs" as="tabs"/>
+   </block>
+</container>
+</layout><layout id="adminhtml_integration_tokensdialog"><container name="root">
+   <block class="Magento\Integration\Block\Adminhtml\Integration\Tokens" name="integration_token_popup"/>
+</container>
+</layout><layout id="adminhtml_integration_tokensexchange"><container name="root">
+   <block class="Magento\Backend\Block\Template" name="integration_tokenexchange_popup" template="Magento_Integration::integration/tokens_exchange.phtml"/>
+</container>
+</layout><handle id="sales_creditmemo_exportcsv"><update handle="sales_creditmemo_grid_block"/>
 <body>
    <block class="Magento\Backend\Block\Widget\Grid\Container" name="sales_creditmemo.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
 </body>
@@ -3732,601 +3788,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       </block>
    </referenceContainer>
 </body>
-</handle><layout id="media_gallery_index_index"><container name="root">
-   <block name="media.gallery.container" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::container.phtml" aclResource="Magento_Cms::media_gallery">
-      <container name="gallery.actions" htmlTag="div" htmlClass="page-main-actions">
-         <block name="page.actions.toolbar" template="Magento_Backend::pageactions.phtml"/>
-      </container>
-      <uiComponent name="media_gallery_listing"/>
-      <block name="image.details" class="Magento\MediaGalleryUi\Block\Adminhtml\ImageDetails" template="Magento_MediaGalleryUi::image_details.phtml">
-         <arguments>
-            <argument name="imageDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
-         </arguments>
-      </block>
-      <block name="image.edit.details" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::image_edit_details.phtml">
-         <arguments>
-            <argument name="imageEditDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
-            <argument name="saveDetailsUrl" path="media_gallery/image/saveDetails" xsi:type="url"/>
-         </arguments>
-      </block>
-   </block>
-</container>
-</layout><handle id="media_gallery_media_index"><body>
-   <referenceContainer htmlTag="div" htmlClass="media-gallery-container" name="content">
-      <uiComponent name="standalone_media_gallery_listing"/>
-      <block name="image.details" class="Magento\MediaGalleryUi\Block\Adminhtml\ImageDetailsStandalone" template="Magento_MediaGalleryUi::image_details_standalone.phtml">
-         <arguments>
-            <argument name="imageDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
-         </arguments>
-      </block>
-      <block name="image.edit.details" class="Magento\Backend\Block\Template" template="Magento_MediaGalleryUi::image_edit_details_standalone.phtml">
-         <arguments>
-            <argument name="imageEditDetailsUrl" path="media_gallery/image/details" xsi:type="url"/>
-            <argument name="saveDetailsUrl" path="media_gallery/image/saveDetails" xsi:type="url"/>
-         </arguments>
-      </block>
-   </referenceContainer>
-</body>
-</handle><handle id="catalog_product_downloadable"><update handle="downloadable_items"/>
-<body>
-   <referenceBlock name="product_form">
-      <arguments>
-         <argument name="excluded_panel" xsi:type="string">product_info_tabs_downloadable_items_content</argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_simple"><update handle="downloadable_items"/>
-</handle><handle id="catalog_product_view_type_downloadable"><body>
-   <referenceBlock name="product.composite.fieldset">
-      <block class="Magento\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Downloadable" name="product.composite.fieldset.downloadable" before="product.composite.fieldset.options" template="Magento_Downloadable::product/composite/fieldset/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_virtual"><update handle="downloadable_items"/>
-</handle><handle id="customer_index_wishlist"><body>
-   <referenceBlock name="customer.wishlist.edit.tab">
-      <arguments>
-         <argument name="product_configuration_helpers" xsi:type="array">
-            <item name="downloadable" xsi:type="string">Magento\Downloadable\Helper\Catalog\Product\Configuration</item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><layout id="downloadable_items"/><handle id="sales_order_creditmemo_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_view"><body>
-   <referenceBlock name="creditmemo_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_view"><body>
-   <referenceBlock name="invoice_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="adminhtml_integration_edit" layout="admin-2columns-left"><update handle="editor"/>
-<body>
-   <referenceContainer name="left">
-      <block class="Magento\Integration\Block\Adminhtml\Integration\Edit\Tabs" name="integration_edit_tabs">
-         <block class="Magento\Integration\Block\Adminhtml\Integration\Edit\Tab\Info" name="integration_edit_tab_info">
-            <block class="Magento\Integration\Block\Adminhtml\Integration\Tokens" name="integration_tokens"/>
-         </block>
-         <action method="addTab">
-            <argument name="name" xsi:type="string">info_section</argument>
-            <argument name="block" xsi:type="string">integration_edit_tab_info</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceContainer name="content">
-      <block class="Magento\Integration\Block\Adminhtml\Integration\Edit" name="integration_edit_content"/>
-   </referenceContainer>
-</body>
-</handle><layout id="adminhtml_integration_grid"><update handle="adminhtml_integration_grid_block"/>
-<container name="root">
-   <block class="Magento\Integration\Block\Adminhtml\Integration" name="integration.grid.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</container>
-</layout><handle id="adminhtml_integration_grid_block"><body>
-   <referenceBlock name="integration.grid.container">
-      <block class="Magento\Integration\Block\Adminhtml\Integration\Grid" name="integration.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">integrationGrid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Integration\Model\ResourceModel\Integration\Collection</argument>
-            <argument name="use_ajax" xsi:type="string">1</argument>
-            <argument name="default_sort" xsi:type="string">integration_id</argument>
-            <argument name="default_dir" xsi:type="string">asc</argument>
-            <argument name="grid_url" path="*/*/grid" xsi:type="url">
-               <param name="_current">1</param>
-            </argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" as="grid.columnSet" name="integration.grid.columnSet">
-            <arguments>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string"/>
-               </argument>
-               <argument name="empty_text" translate="true" xsi:type="string">We couldn't find any records.</argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.name" as="name">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Name</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-                  <argument name="index" xsi:type="string">name</argument>
-                  <argument name="id" xsi:type="string">name</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Name</argument>
-                  <argument name="escape" xsi:type="string">1</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.status" as="status">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Status</argument>
-                  <argument name="type" xsi:type="string">options</argument>
-                  <argument name="options" model="Magento\Integration\Model\Integration\Source\Status" xsi:type="options"/>
-                  <argument name="index" xsi:type="string">status</argument>
-                  <argument name="id" xsi:type="string">status</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.activate" as="activate">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Activate</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Link\Activate</argument>
-                  <argument name="index" xsi:type="string">activate</argument>
-                  <argument name="id" xsi:type="string">activate</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.edit" as="edit">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Edit</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Button\Edit</argument>
-                  <argument name="index" xsi:type="string">edit</argument>
-                  <argument name="id" xsi:type="string">edit</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="integration.grid.columnSet.delete" as="delete">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Delete</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Integration\Block\Adminhtml\Widget\Grid\Column\Renderer\Button\Delete</argument>
-                  <argument name="class" xsi:type="string">action delete</argument>
-                  <argument name="index" xsi:type="string">delete</argument>
-                  <argument name="id" xsi:type="string">delete</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="filter" xsi:type="string">0</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="adminhtml_integration_index"><update handle="adminhtml_integration_grid_block"/>
-<body>
-   <referenceBlock name="content">
-      <block class="Magento\Backend\Block\Template" name="integration.popup.container" template="Magento_Integration::integration/popup_container.phtml" before="-"/>
-      <block class="Magento\Integration\Block\Adminhtml\Integration" name="integration.grid.container"/>
-   </referenceBlock>
-</body>
-</handle><handle id="adminhtml_integration_new" layout="admin-2columns-left"><update handle="adminhtml_integration_edit"/>
-<body>
-   <referenceBlock name="content">
-      <block class="Magento\Backend\Block\Template" name="integration.popup.container" template="Magento_Integration::integration/popup_container.phtml" before="-"/>
-   </referenceBlock>
-</body>
-</handle><layout id="adminhtml_integration_permissionsdialog"><container name="root">
-   <block class="Magento\Backend\Block\Template" name="integration.activate.permissions" template="Magento_Integration::integration/activate/permissions.phtml">
-      <block class="Magento\Integration\Block\Adminhtml\Integration\Activate\Permissions\Tabs" name="integration.activate.permissions.tabs" as="tabs"/>
-   </block>
-</container>
-</layout><layout id="adminhtml_integration_tokensdialog"><container name="root">
-   <block class="Magento\Integration\Block\Adminhtml\Integration\Tokens" name="integration_token_popup"/>
-</container>
-</layout><layout id="adminhtml_integration_tokensexchange"><container name="root">
-   <block class="Magento\Backend\Block\Template" name="integration_tokenexchange_popup" template="Magento_Integration::integration/tokens_exchange.phtml"/>
-</container>
-</layout><handle id="adminhtml_url_rewrite_index"><body>
-   <referenceContainer name="content">
-      <uiComponent name="url_rewrite_listing"/>
-   </referenceContainer>
-</body>
-</handle><layout id="catalog_product_addattribute"><container name="root">
-   <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Attribute\NewAttribute\Product\Created" template="Magento_ConfigurableProduct::catalog/product/attribute/new/created.phtml" name="root.configurable_product_attribute_created" as="product.attribute.created"/>
-</container>
-</layout><layout id="catalog_product_associated_grid"><container name="root">
-   <uiComponent name="configurable_associated_product_listing"/>
-</container>
-</layout><handle id="catalog_product_attribute_edit_product_tab_variations_popup"><update handle="catalog_product_attribute_edit_popup"/>
-</handle><handle id="catalog_product_configurable"><head>
-   <css src="Magento_ConfigurableProduct::css/configurable-product.css"/>
-</head>
-<update handle="catalog_product_superconfig_config"/>
-<body>
-   <referenceBlock name="product_tabs">
-      <action method="removeTab">
-         <argument name="name" xsi:type="string">advanced-pricing</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_downloadable"><update handle="catalog_product_superconfig_config"/>
-</handle><handle id="catalog_product_new"><head>
-   <css src="Magento_ConfigurableProduct::product/product.css"/>
-</head>
-<body>
-   <referenceContainer name="js">
-      <block class="Magento\ConfigurableProduct\Block\Product\Configurable\AttributeSelector" name="js.configurable_product_affected_attribute_set_selector" template="Magento_ConfigurableProduct::product/configurable/affected-attribute-set-selector/js.phtml"/>
-      <block class="Magento\Framework\View\Element\Template" name="js.configurable_product_stock_disabler" template="Magento_ConfigurableProduct::product/configurable/stock/disabler.phtml"/>
-   </referenceContainer>
-   <referenceContainer name="content">
-      <block class="Magento\Framework\View\Element\Template" name="affected-attribute-set-selector" template="Magento_ConfigurableProduct::product/configurable/affected-attribute-set-selector/form.phtml">
-         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Edit\AttributeSet\Form" name="affected-attribute-set-form"/>
-      </block>
-   </referenceContainer>
-</body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="configurable" xsi:type="array">
-         <item name="prices" xsi:type="array">
-            <item name="tier_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\TierPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/tier_price.phtml</item>
-            </item>
-            <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/final_price.phtml</item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="catalog_product_set_edit"><body>
-   <referenceContainer name="content">
-      <block class="Magento\Backend\Block\Template" name="adminhtml.catalog.product.set.edit.configurable" template="Magento_ConfigurableProduct::catalog/product/attribute/set/js.phtml" after="adminhtml.catalog.product.set.edit.wrapper"/>
-   </referenceContainer>
-</body>
-</handle><handle id="catalog_product_simple"><update handle="catalog_product_superconfig_config"/>
-</handle><handle id="catalog_product_view_type_configurable"><body>
-   <referenceBlock name="product.composite.fieldset">
-      <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Composite\Fieldset\Configurable" name="product.composite.fieldset.configurable" before="product.composite.fieldset.options" template="Magento_ConfigurableProduct::catalog/product/composite/fieldset/configurable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_virtual"><update handle="catalog_product_superconfig_config"/>
-</handle><layout id="catalog_product_wizard"><container name="root">
-   <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Edit\Tab\Variations\Config\Matrix" template="Magento_ConfigurableProduct::catalog/product/edit/super/wizard-ajax.phtml" name="root.wizard" as="wizard">
-      <arguments>
-         <argument name="config" xsi:type="array">
-            <item name="collapsible" xsi:type="boolean">false</item>
-            <item name="label" translate="true" xsi:type="string"/>
-            <item name="sortOrder" xsi:type="string">3333</item>
-            <item name="canShow" xsi:type="boolean">true</item>
-            <item name="componentType" xsi:type="string">fieldset</item>
-            <item name="form" xsi:type="string">product_form.product_form</item>
-            <item name="modal" xsi:type="string">configurableModal</item>
-            <item name="nameStepWizard" xsi:type="string">variation-steps-wizard</item>
-            <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-         </argument>
-      </arguments>
-      <block class="Magento\Ui\Block\Component\StepsWizard" name="variation-steps-wizard">
-         <arguments>
-            <argument name="config" xsi:type="array">
-               <item name="form" xsi:type="string">product_form.product_form</item>
-               <item name="modal" xsi:type="string">configurableModal</item>
-               <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-            </argument>
-         </arguments>
-         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\SelectAttributes" name="step1" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/select_attributes.phtml">
-            <arguments>
-               <argument name="config" xsi:type="array">
-                  <item name="form" xsi:type="string">product_form.product_form</item>
-                  <item name="modal" xsi:type="string">configurableModal</item>
-                  <item name="multiselectName" xsi:type="string">product_attributes_listing.product_attributes_listing.product_attributes_columns.ids</item>
-                  <item name="providerName" xsi:type="string">product_attributes_listing.product_attributes_listing_data_source</item>
-                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-               </argument>
-            </arguments>
-            <uiComponent name="product_attributes_listing"/>
-         </block>
-         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\AttributeValues" name="step2" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/attributes_values.phtml">
-            <arguments>
-               <argument name="config" xsi:type="array">
-                  <item name="form" xsi:type="string">product_form.product_form</item>
-                  <item name="modal" xsi:type="string">configurableModal</item>
-                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-               </argument>
-               <argument name="permissions" xsi:type="object">Magento\ConfigurableProduct\Block\DataProviders\PermissionsData</argument>
-            </arguments>
-         </block>
-         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\Bulk" name="step3" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/bulk.phtml">
-            <arguments>
-               <argument name="config" xsi:type="array">
-                  <item name="form" xsi:type="string">product_form.product_form</item>
-                  <item name="modal" xsi:type="string">configurableModal</item>
-                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-               </argument>
-            </arguments>
-         </block>
-         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\Summary" name="step4" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/summary.phtml">
-            <arguments>
-               <argument name="config" xsi:type="array">
-                  <item name="form" xsi:type="string">product_form.product_form</item>
-                  <item name="modal" xsi:type="string">configurableModal</item>
-                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
-               </argument>
-            </arguments>
-         </block>
-      </block>
-   </block>
-</container>
-</layout><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="default" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="default" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
-               </item>
-            </item>
-         </item>
-      </argument>
-      <argument name="bundle" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="bundle_option" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment/bundle.phtml</item>
-               </item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="sales_creditmemo_item_price"><body>
-   <referenceBlock name="creditmemo_items">
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_invoice_item_price"><body>
-   <referenceBlock name="invoice_items">
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_create_item_price"><body>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Tax::order/create/items/price/unit.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Tax::order/create/items/price/row.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total_with_discount" template="Magento_Tax::order/create/items/price/total.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-</body>
-</handle><handle id="sales_order_item_price"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
-      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="tax_rate_block"><body>
-   <referenceBlock name="adminhtml.tax.rate.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.tax.rate.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">tax_rate_grid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Tax\Model\TaxRateCollection</argument>
-            <argument name="default_sort" xsi:type="string">region_name</argument>
-            <argument name="default_dir" xsi:type="string">ASC</argument>
-            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.catalog.product.set.grid.columnSet" as="grid.columnSet">
-            <arguments>
-               <argument name="id" xsi:type="string">tax_rate_grid</argument>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string">tax/*/edit</item>
-                  <item name="extraParamsTemplate" xsi:type="array">
-                     <item name="rate" xsi:type="string">getTaxCalculationRateId</item>
-                  </item>
-               </argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.code" as="code">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Tax Identifier</argument>
-                  <argument name="filter_index" xsi:type="string">code</argument>
-                  <argument name="index" xsi:type="string">code</argument>
-                  <argument name="column_css_class" xsi:type="string">col-name</argument>
-                  <argument name="header_css_class" xsi:type="string">col-name</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.tax_country_id" as="tax_country_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Country</argument>
-                  <argument name="type" xsi:type="string">country</argument>
-                  <argument name="filter_index" xsi:type="string">tax_country_id</argument>
-                  <argument name="index" xsi:type="string">tax_country_id</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.region_name" as="region_name">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">State/Region</argument>
-                  <argument name="filter_index" xsi:type="string">region_name</argument>
-                  <argument name="index" xsi:type="string">region_name</argument>
-                  <argument name="default" xsi:type="string">*</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.tax_postcode" as="tax_postcode">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Zip/Post Code</argument>
-                  <argument name="index" xsi:type="string">tax_postcode</argument>
-                  <argument name="default" xsi:type="string">*</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.rate" as="rate">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Rate</argument>
-                  <argument name="index" xsi:type="string">rate</argument>
-                  <argument name="type" xsi:type="string">number</argument>
-                  <argument name="default" xsi:type="string">0.00</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Tax\Block\Adminhtml\Rate\Grid\Renderer\Data</argument>
-                  <argument name="column_css_class" xsi:type="string">col-price</argument>
-                  <argument name="header_css_class" xsi:type="string">col-price</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="tax_rate_exportcsv"><update handle="tax_rate_block"/>
-<body>
-   <block class="Magento\Backend\Block\Widget\Grid\Container" name="adminhtml.tax.rate.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</body>
-</handle><handle id="tax_rate_exportxml"><update handle="tax_rate_block"/>
-<body>
-   <block class="Magento\Backend\Block\Widget\Grid\Container" name="adminhtml.tax.rate.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</body>
-</handle><handle id="tax_rate_index"><update handle="formkey"/>
-<update handle="tax_rate_block"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Tax\Block\Adminhtml\Rate\Toolbar\Add" name="adminhtml.tax.rate.container"/>
-   </referenceContainer>
-</body>
-</handle><handle id="tax_rule_block"><body>
-   <referenceBlock name="adminhtml.block.tax.rule.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.block.tax.rule.grid" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">taxRuleGrid</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\Tax\Model\TaxRuleCollection</argument>
-            <argument name="default_sort" xsi:type="string">tax_rule_id</argument>
-            <argument name="default_dir" xsi:type="string">ASC</argument>
-            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.block.tax.rule.columnSet" as="grid.columnSet">
-            <arguments>
-               <argument name="rowUrl" xsi:type="array">
-                  <item name="path" xsi:type="string">tax/*/edit</item>
-                  <item name="extraParamsTemplate" xsi:type="array">
-                     <item name="rule" xsi:type="string">getTaxCalculationRuleId</item>
-                  </item>
-               </argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.code" as="code">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Name</argument>
-                  <argument name="index" xsi:type="string">code</argument>
-                  <argument name="type" xsi:type="string">longtext</argument>
-                  <argument name="filter_index" xsi:type="string">code</argument>
-                  <argument name="column_css_class" xsi:type="string">col-name</argument>
-                  <argument name="header_css_class" xsi:type="string">col-name</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.customer_tax_classes" as="customer_tax_classes">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Customer Tax Class</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">customer_tax_classes</argument>
-                  <argument name="filter_index" xsi:type="string">ctc.customer_tax_class_id</argument>
-                  <argument name="show_missing_option_values" xsi:type="string">1</argument>
-                  <argument name="type" xsi:type="string">options</argument>
-                  <argument name="options" model="Magento\Tax\Model\TaxClass\Source\Customer" xsi:type="options"/>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.product_tax_classes" as="product_tax_classes">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Product Tax Class</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">product_tax_classes</argument>
-                  <argument name="filter_index" xsi:type="string">ptc.product_tax_class_id</argument>
-                  <argument name="show_missing_option_values" xsi:type="string">1</argument>
-                  <argument name="type" xsi:type="string">options</argument>
-                  <argument name="options" model="Magento\Tax\Model\TaxClass\Source\Product" xsi:type="options"/>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.tax_rates_codes" as="tax_rates_codes">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Tax Rate</argument>
-                  <argument name="sortable" xsi:type="string">0</argument>
-                  <argument name="index" xsi:type="string">tax_rates_codes</argument>
-                  <argument name="filter_index" xsi:type="string">rc.code</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-                  <argument name="column_css_class" xsi:type="string">col-title</argument>
-                  <argument name="header_css_class" xsi:type="string">col-title</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Tax\Block\Grid\Renderer\Codes</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.priority" as="priority">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Priority</argument>
-                  <argument name="index" xsi:type="string">priority</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.calculate_subtotal" as="calculate_subtotal">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Subtotal Only</argument>
-                  <argument name="index" xsi:type="string">calculate_subtotal</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.position" as="position">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Sort Order</argument>
-                  <argument name="index" xsi:type="string">position</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="tax_rule_edit"><head>
-   <link src="Magento_Tax::js/bootstrap.js"/>
-   <css src="jquery/editableMultiselect/css/jquery.multiselect.css"/>
-</head>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Tax\Block\Adminhtml\Rule\Edit" name="content.tax_rule_edit"/>
-      <block class="Magento\Tax\Block\Adminhtml\Rule\Edit\Form" name="tax-rule-edit" template="Magento_Tax::rule/edit.phtml"/>
-      <block class="Magento\Tax\Block\Adminhtml\Rate\Form" name="tax-rate-form" template="Magento_Tax::rule/rate/form.phtml"/>
-   </referenceContainer>
-</body>
-</handle><handle id="tax_rule_index"><update handle="tax_rule_block"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Tax\Block\Adminhtml\Rule" name="adminhtml.block.tax.rule.container"/>
-   </referenceContainer>
-</body>
 </handle><handle id="default"><body>
    <referenceContainer name="after.body.start">
       <block class="Magento\Framework\View\Element\Js\Cookie" name="cookie_config" template="Magento_Cookie::html/cookie.phtml">
@@ -4457,6 +3918,65 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
    <referenceContainer name="content">
       <block template="Magento_Analytics::dashboard/section.phtml" class="Magento\Backend\Block\Template" name="analytics_service_external_link" before="-"/>
    </referenceContainer>
+</body>
+</handle><handle id="catalog_product_downloadable"><update handle="downloadable_items"/>
+<body>
+   <referenceBlock name="product_form">
+      <arguments>
+         <argument name="excluded_panel" xsi:type="string">product_info_tabs_downloadable_items_content</argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_simple"><update handle="downloadable_items"/>
+</handle><handle id="catalog_product_view_type_downloadable"><body>
+   <referenceBlock name="product.composite.fieldset">
+      <block class="Magento\Downloadable\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Downloadable" name="product.composite.fieldset.downloadable" before="product.composite.fieldset.options" template="Magento_Downloadable::product/composite/fieldset/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_virtual"><update handle="downloadable_items"/>
+</handle><handle id="customer_index_wishlist"><body>
+   <referenceBlock name="customer.wishlist.edit.tab">
+      <arguments>
+         <argument name="product_configuration_helpers" xsi:type="array">
+            <item name="downloadable" xsi:type="string">Magento\Downloadable\Helper\Catalog\Product\Configuration</item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><layout id="downloadable_items"/><handle id="sales_order_creditmemo_new"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_updateqty"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_view"><body>
+   <referenceBlock name="creditmemo_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/creditmemo/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_new"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_updateqty"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_view"><body>
+   <referenceBlock name="invoice_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/invoice/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_view"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Downloadable\Block\Adminhtml\Sales\Items\Column\Downloadable\Name" name="column_name_downloadable" template="Magento_Downloadable::sales/items/column/downloadable/name.phtml" group="column"/>
+   </referenceBlock>
 </body>
 </handle><handle id="customer_import_export_index_exportcsv"><update handle="customer_index_grid_block"/>
 <body>
@@ -4623,155 +4143,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
 <container name="root">
    <block class="Magento\AdvancedSearch\Block\Adminhtml\Search\Edit" name="related_grid_edit"/>
 </container>
-</layout><handle id="catalog_product_grouped"><head>
-   <css src="Magento_GroupedProduct::css/grouped-product.css"/>
-</head>
-<update handle="groupedproduct_popup_grid"/>
-<body>
-   <referenceBlock name="product_tabs">
-      <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts" name="catalog.product.edit.tab.grouped.container" template="Magento_GroupedProduct::product/grouped/grouped.phtml">
-         <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts\ListAssociatedProducts" name="catalog.product.edit.tab.super.list" as="list" template="Magento_GroupedProduct::product/grouped/list.phtml"/>
-         <block class="Magento\Framework\View\Element\Template" name="catalog.product.edit.tab.super.grid.popup.container" as="catalog.product.group.grid.popup.container"/>
-      </block>
-      <action method="addTab">
-         <argument name="name" xsi:type="string">grouped</argument>
-         <argument name="block" xsi:type="string">catalog.product.edit.tab.grouped.container</argument>
-      </action>
-      <referenceBlock name="product_tabs.customer_options">
-         <arguments>
-            <argument name="can_show" xsi:type="boolean">false</argument>
-         </arguments>
-      </referenceBlock>
-      <referenceBlock name="product_tabs.product-alerts">
-         <arguments>
-            <argument name="can_show" xsi:type="boolean">false</argument>
-         </arguments>
-      </referenceBlock>
-   </referenceBlock>
-</body>
-</handle><handle id="catalog_product_new"><body>
-   <referenceContainer name="js">
-      <block class="Magento\Framework\View\Element\Template" name="js.grouped_product_stock_disabler" template="Magento_GroupedProduct::product/stock/disabler.phtml"/>
-   </referenceContainer>
-</body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="grouped" xsi:type="array">
-         <item name="prices" xsi:type="array">
-            <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\Catalog\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_GroupedProduct::product/price/final_price.phtml</item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="catalog_product_view_type_grouped"><body>
-   <referenceBlock name="product.composite.fieldset">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Product\Composite\Fieldset\Grouped" name="product.composite.fieldset.grouped" before="product.composite.fieldset.options" template="Magento_GroupedProduct::catalog/product/composite/fieldset/grouped.phtml"/>
-   </referenceBlock>
-   <referenceBlock name="product.composite.fieldset.qty" remove="true"/>
-</body>
-</handle><layout id="groupedproduct_edit_popup"><update handle="catalog_product_grouped"/>
-<container name="root">
-   <block class="Magento\Backend\Block\Widget\Grid\Container" name="catalog.product.edit.tab.super.grid.popup.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
-</container>
-</layout><handle id="groupedproduct_popup_grid"><body>
-   <referenceBlock name="catalog.product.edit.tab.super.grid.popup.container">
-      <block class="Magento\Backend\Block\Widget\Grid" name="catalog.product.edit.tab.super.group.popup" as="grid">
-         <arguments>
-            <argument name="id" xsi:type="string">grouped_grid_popup</argument>
-            <argument name="dataSource" shared="false" xsi:type="object">Magento\GroupedProduct\Model\ResourceModel\Product\Type\Grouped\AssociatedProductsCollection</argument>
-            <argument name="use_ajax" xsi:type="string">1</argument>
-            <argument name="default_sort" xsi:type="string">id</argument>
-            <argument name="default_dir" xsi:type="string">ASC</argument>
-            <argument name="save_parameters_in_session" xsi:type="string">0</argument>
-            <argument name="grid_url" path="groupedProduct/edit/popup" xsi:type="url">
-               <param name="_current">1</param>
-            </argument>
-         </arguments>
-         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="catalog.product.edit.tab.super.group.popup.columnSet" as="grid.columnSet">
-            <arguments>
-               <argument name="id" xsi:type="string">grouped_grid_popup</argument>
-            </arguments>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.entity_ids" as="entity_ids">
-               <arguments>
-                  <argument name="type" xsi:type="string">skip-list</argument>
-                  <argument name="renderer" xsi:type="string">Magento\Backend\Block\Widget\Grid\Column\Renderer\Checkbox</argument>
-                  <argument name="name" xsi:type="string">entity_ids</argument>
-                  <argument name="index" xsi:type="string">entity_id</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.entity_id" as="entity_id">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">ID</argument>
-                  <argument name="index" xsi:type="string">entity_id</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.name" as="name">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Name</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-                  <argument name="index" xsi:type="string">name</argument>
-                  <argument name="editable" xsi:type="string">1</argument>
-                  <argument name="escape" xsi:type="string">1</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.sku" as="sku">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">SKU</argument>
-                  <argument name="type" xsi:type="string">text</argument>
-                  <argument name="index" xsi:type="string">sku</argument>
-                  <argument name="escape" xsi:type="string">1</argument>
-               </arguments>
-            </block>
-            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.price" as="price">
-               <arguments>
-                  <argument name="header" translate="true" xsi:type="string">Price</argument>
-                  <argument name="type" xsi:type="string">currency</argument>
-                  <argument name="index" xsi:type="string">price</argument>
-               </arguments>
-            </block>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_view"><body>
-   <referenceBlock name="creditmemo_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_new"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_updateqty"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_view"><body>
-   <referenceBlock name="invoice_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
-   </referenceBlock>
-</body>
-</handle><layout id="adminhtml_export_getfilter"><container name="root" label="Root">
+</layout><layout id="adminhtml_export_getfilter"><container name="root" label="Root">
    <block class="Magento\ImportExport\Block\Adminhtml\Export\Filter" name="export.filter"/>
    <block class="Magento\Backend\Block\Template" template="Magento_ImportExport::export/form/filter/after.phtml" name="export.form.after" as="form_after"/>
 </container>
@@ -4890,126 +4262,102 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
 </layout><layout id="adminhtml_import_validate"><container name="root">
    <block class="Magento\ImportExport\Block\Adminhtml\Import\Frame\Result" template="Magento_ImportExport::import/frame/result.phtml" name="import.frame.result" as="import_frame_result"/>
 </container>
-</layout><handle id="catalog_product_form"><head>
-   <css src="Magento_Weee::styles.css"/>
+</layout><handle id="adminhtml_order_shipment_new"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/shipment/create/items/renderer.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="adminhtml_order_shipment_view"><body>
+   <referenceBlock name="shipment_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="bundle" as="bundle" template="Magento_Bundle::sales/shipment/view/items/renderer.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_bundle"><head>
+   <css src="Magento_Bundle::css/bundle-product.css"/>
 </head>
+<body>
+   <referenceBlock name="product_tabs">
+      <action method="addTab">
+         <argument name="name" xsi:type="string">bundle</argument>
+         <argument name="block" xsi:type="string">Magento\Bundle\Block\Adminhtml\Catalog\Product\Edit\Tab\Bundle</argument>
+      </action>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_new"><body>
+   <referenceContainer name="js">
+      <block class="Magento\Framework\View\Element\Template" name="js.bundle_stock_disabler" template="Magento_Bundle::product/stock/disabler.phtml"/>
+   </referenceContainer>
+</body>
 </handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
    <arguments>
-      <argument name="default" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="default" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\TaxAdjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
-               </item>
-               <item name="weee" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Weee::pricing/adjustment.phtml</item>
-               </item>
+      <argument name="bundle" xsi:type="array">
+         <item name="prices" xsi:type="array">
+            <item name="tier_price" xsi:type="array">
+               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/tier_prices.phtml</item>
+            </item>
+            <item name="final_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\Bundle\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/final_price.phtml</item>
+            </item>
+            <item name="bundle_option" xsi:type="array">
+               <item name="amount_render_template" xsi:type="string">Magento_Bundle::product/price/selection/amount.phtml</item>
             </item>
          </item>
       </argument>
    </arguments>
 </referenceBlock>
-</layout><handle id="sales_creditmemo_item_price"><body>
-   <referenceBlock name="creditmemo_items">
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+</layout><handle id="catalog_product_view_type_bundle"><body>
+   <referenceBlock name="product.composite.fieldset">
+      <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Bundle" before="product.composite.fieldset.options" name="product.composite.fieldset.bundle" template="Magento_Bundle::product/composite/fieldset/options/bundle.phtml">
+         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Select" name="product.info.bundle.options.select" as="select"/>
+         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Multi" name="product.info.bundle.options.multi" as="multi"/>
+         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Radio" name="product.info.bundle.options.radio" as="radio"/>
+         <block class="Magento\Bundle\Block\Adminhtml\Catalog\Product\Composite\Fieldset\Options\Type\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox"/>
+      </block>
    </referenceBlock>
 </body>
-</handle><handle id="sales_invoice_item_price"><body>
-   <referenceBlock name="invoice_items">
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+</handle><handle id="customer_index_wishlist"><body>
+   <referenceBlock name="customer.wishlist.edit.tab">
+      <arguments>
+         <argument name="product_configuration_helpers" xsi:type="array">
+            <item name="bundle" xsi:type="string">Magento\Bundle\Helper\Catalog\Product\Configuration</item>
+         </argument>
+      </arguments>
    </referenceBlock>
-</body>
-</handle><handle id="sales_order_create_item_price"><body>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Weee::order/create/items/price/unit.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Weee::order/create/items/price/row.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total_with_discount" template="Magento_Weee::order/create/items/price/total.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
 </body>
 </handle><handle id="sales_order_creditmemo_new"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/create/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_creditmemo_updateqty"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/create/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_creditmemo_view"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="creditmemo_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="creditmemo_items.bundle" as="bundle" template="Magento_Bundle::sales/creditmemo/view/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_invoice_new"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/create/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_invoice_updateqty"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/create/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_invoice_view"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_item_price"><body>
-   <referenceBlock name="order_items">
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
-      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+   <referenceBlock name="invoice_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\Items\Renderer" name="invoice_items.bundle" as="bundle" template="Magento_Bundle::sales/invoice/view/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+   <referenceBlock name="order_items">
+      <block class="Magento\Bundle\Block\Adminhtml\Sales\Order\View\Items\Renderer" name="order_items.bundle" as="bundle" template="Magento_Bundle::sales/order/view/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><layout id="adminhtml_email_template_grid"><update handle="formkey"/>
@@ -5198,6 +4546,184 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       <block class="Magento\PageCache\Block\System\Config\Form\Field\Export" name="js.page_cache_validation" template="Magento_PageCache::page_cache_validation.phtml"/>
    </referenceContainer>
 </body>
+</handle><handle id="catalog_product_grouped"><head>
+   <css src="Magento_GroupedProduct::css/grouped-product.css"/>
+</head>
+<update handle="groupedproduct_popup_grid"/>
+<body>
+   <referenceBlock name="product_tabs">
+      <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts" name="catalog.product.edit.tab.grouped.container" template="Magento_GroupedProduct::product/grouped/grouped.phtml">
+         <block class="Magento\GroupedProduct\Block\Product\Grouped\AssociatedProducts\ListAssociatedProducts" name="catalog.product.edit.tab.super.list" as="list" template="Magento_GroupedProduct::product/grouped/list.phtml"/>
+         <block class="Magento\Framework\View\Element\Template" name="catalog.product.edit.tab.super.grid.popup.container" as="catalog.product.group.grid.popup.container"/>
+      </block>
+      <action method="addTab">
+         <argument name="name" xsi:type="string">grouped</argument>
+         <argument name="block" xsi:type="string">catalog.product.edit.tab.grouped.container</argument>
+      </action>
+      <referenceBlock name="product_tabs.customer_options">
+         <arguments>
+            <argument name="can_show" xsi:type="boolean">false</argument>
+         </arguments>
+      </referenceBlock>
+      <referenceBlock name="product_tabs.product-alerts">
+         <arguments>
+            <argument name="can_show" xsi:type="boolean">false</argument>
+         </arguments>
+      </referenceBlock>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_new"><body>
+   <referenceContainer name="js">
+      <block class="Magento\Framework\View\Element\Template" name="js.grouped_product_stock_disabler" template="Magento_GroupedProduct::product/stock/disabler.phtml"/>
+   </referenceContainer>
+</body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="grouped" xsi:type="array">
+         <item name="prices" xsi:type="array">
+            <item name="final_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\Catalog\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_GroupedProduct::product/price/final_price.phtml</item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="catalog_product_view_type_grouped"><body>
+   <referenceBlock name="product.composite.fieldset">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Product\Composite\Fieldset\Grouped" name="product.composite.fieldset.grouped" before="product.composite.fieldset.options" template="Magento_GroupedProduct::catalog/product/composite/fieldset/grouped.phtml"/>
+   </referenceBlock>
+   <referenceBlock name="product.composite.fieldset.qty" remove="true"/>
+</body>
+</handle><layout id="groupedproduct_edit_popup"><update handle="catalog_product_grouped"/>
+<container name="root">
+   <block class="Magento\Backend\Block\Widget\Grid\Container" name="catalog.product.edit.tab.super.grid.popup.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</container>
+</layout><handle id="groupedproduct_popup_grid"><body>
+   <referenceBlock name="catalog.product.edit.tab.super.grid.popup.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="catalog.product.edit.tab.super.group.popup" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">grouped_grid_popup</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\GroupedProduct\Model\ResourceModel\Product\Type\Grouped\AssociatedProductsCollection</argument>
+            <argument name="use_ajax" xsi:type="string">1</argument>
+            <argument name="default_sort" xsi:type="string">id</argument>
+            <argument name="default_dir" xsi:type="string">ASC</argument>
+            <argument name="save_parameters_in_session" xsi:type="string">0</argument>
+            <argument name="grid_url" path="groupedProduct/edit/popup" xsi:type="url">
+               <param name="_current">1</param>
+            </argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="catalog.product.edit.tab.super.group.popup.columnSet" as="grid.columnSet">
+            <arguments>
+               <argument name="id" xsi:type="string">grouped_grid_popup</argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.entity_ids" as="entity_ids">
+               <arguments>
+                  <argument name="type" xsi:type="string">skip-list</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Backend\Block\Widget\Grid\Column\Renderer\Checkbox</argument>
+                  <argument name="name" xsi:type="string">entity_ids</argument>
+                  <argument name="index" xsi:type="string">entity_id</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.entity_id" as="entity_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">ID</argument>
+                  <argument name="index" xsi:type="string">entity_id</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.name" as="name">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Name</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+                  <argument name="index" xsi:type="string">name</argument>
+                  <argument name="editable" xsi:type="string">1</argument>
+                  <argument name="escape" xsi:type="string">1</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.sku" as="sku">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">SKU</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+                  <argument name="index" xsi:type="string">sku</argument>
+                  <argument name="escape" xsi:type="string">1</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="catalog.product.edit.tab.super.group.popup.columnSet.price" as="price">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Price</argument>
+                  <argument name="type" xsi:type="string">currency</argument>
+                  <argument name="index" xsi:type="string">price</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_new"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_updateqty"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_view"><body>
+   <referenceBlock name="creditmemo_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_new"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_updateqty"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_view"><body>
+   <referenceBlock name="invoice_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_view"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\GroupedProduct\Block\Adminhtml\Items\Column\Name\Grouped" name="column_name_grouped" template="Magento_Sales::items/column/name.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="adminhtml_auth_forgotpassword"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">backend_forgotpassword</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">226</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+</body>
+</handle><handle id="adminhtml_auth_login"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">backend_login</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">226</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+</body>
 </handle><handle id="inventory_source_edit"><body>
    <referenceContainer name="content">
       <uiComponent name="inventory_source_form"/>
@@ -5264,7 +4790,134 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       </block>
    </referenceContainer>
 </body>
-</handle><handle id="adminhtml_order_shipment_addcomment"><body>
+</handle><layout id="catalog_product_addattribute"><container name="root">
+   <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Attribute\NewAttribute\Product\Created" template="Magento_ConfigurableProduct::catalog/product/attribute/new/created.phtml" name="root.configurable_product_attribute_created" as="product.attribute.created"/>
+</container>
+</layout><layout id="catalog_product_associated_grid"><container name="root">
+   <uiComponent name="configurable_associated_product_listing"/>
+</container>
+</layout><handle id="catalog_product_attribute_edit_product_tab_variations_popup"><update handle="catalog_product_attribute_edit_popup"/>
+</handle><handle id="catalog_product_configurable"><head>
+   <css src="Magento_ConfigurableProduct::css/configurable-product.css"/>
+</head>
+<update handle="catalog_product_superconfig_config"/>
+<body>
+   <referenceBlock name="product_tabs">
+      <action method="removeTab">
+         <argument name="name" xsi:type="string">advanced-pricing</argument>
+      </action>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_downloadable"><update handle="catalog_product_superconfig_config"/>
+</handle><handle id="catalog_product_new"><head>
+   <css src="Magento_ConfigurableProduct::product/product.css"/>
+</head>
+<body>
+   <referenceContainer name="js">
+      <block class="Magento\ConfigurableProduct\Block\Product\Configurable\AttributeSelector" name="js.configurable_product_affected_attribute_set_selector" template="Magento_ConfigurableProduct::product/configurable/affected-attribute-set-selector/js.phtml"/>
+      <block class="Magento\Framework\View\Element\Template" name="js.configurable_product_stock_disabler" template="Magento_ConfigurableProduct::product/configurable/stock/disabler.phtml"/>
+   </referenceContainer>
+   <referenceContainer name="content">
+      <block class="Magento\Framework\View\Element\Template" name="affected-attribute-set-selector" template="Magento_ConfigurableProduct::product/configurable/affected-attribute-set-selector/form.phtml">
+         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Edit\AttributeSet\Form" name="affected-attribute-set-form"/>
+      </block>
+   </referenceContainer>
+</body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="configurable" xsi:type="array">
+         <item name="prices" xsi:type="array">
+            <item name="tier_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\TierPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/tier_price.phtml</item>
+            </item>
+            <item name="final_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/final_price.phtml</item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="catalog_product_set_edit"><body>
+   <referenceContainer name="content">
+      <block class="Magento\Backend\Block\Template" name="adminhtml.catalog.product.set.edit.configurable" template="Magento_ConfigurableProduct::catalog/product/attribute/set/js.phtml" after="adminhtml.catalog.product.set.edit.wrapper"/>
+   </referenceContainer>
+</body>
+</handle><handle id="catalog_product_simple"><update handle="catalog_product_superconfig_config"/>
+</handle><handle id="catalog_product_view_type_configurable"><body>
+   <referenceBlock name="product.composite.fieldset">
+      <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Composite\Fieldset\Configurable" name="product.composite.fieldset.configurable" before="product.composite.fieldset.options" template="Magento_ConfigurableProduct::catalog/product/composite/fieldset/configurable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="catalog_product_virtual"><update handle="catalog_product_superconfig_config"/>
+</handle><layout id="catalog_product_wizard"><container name="root">
+   <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Edit\Tab\Variations\Config\Matrix" template="Magento_ConfigurableProduct::catalog/product/edit/super/wizard-ajax.phtml" name="root.wizard" as="wizard">
+      <arguments>
+         <argument name="config" xsi:type="array">
+            <item name="collapsible" xsi:type="boolean">false</item>
+            <item name="label" translate="true" xsi:type="string"/>
+            <item name="sortOrder" xsi:type="string">3333</item>
+            <item name="canShow" xsi:type="boolean">true</item>
+            <item name="componentType" xsi:type="string">fieldset</item>
+            <item name="form" xsi:type="string">product_form.product_form</item>
+            <item name="modal" xsi:type="string">configurableModal</item>
+            <item name="nameStepWizard" xsi:type="string">variation-steps-wizard</item>
+            <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+         </argument>
+      </arguments>
+      <block class="Magento\Ui\Block\Component\StepsWizard" name="variation-steps-wizard">
+         <arguments>
+            <argument name="config" xsi:type="array">
+               <item name="form" xsi:type="string">product_form.product_form</item>
+               <item name="modal" xsi:type="string">configurableModal</item>
+               <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+            </argument>
+         </arguments>
+         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\SelectAttributes" name="step1" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/select_attributes.phtml">
+            <arguments>
+               <argument name="config" xsi:type="array">
+                  <item name="form" xsi:type="string">product_form.product_form</item>
+                  <item name="modal" xsi:type="string">configurableModal</item>
+                  <item name="multiselectName" xsi:type="string">product_attributes_listing.product_attributes_listing.product_attributes_columns.ids</item>
+                  <item name="providerName" xsi:type="string">product_attributes_listing.product_attributes_listing_data_source</item>
+                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+               </argument>
+            </arguments>
+            <uiComponent name="product_attributes_listing"/>
+         </block>
+         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\AttributeValues" name="step2" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/attributes_values.phtml">
+            <arguments>
+               <argument name="config" xsi:type="array">
+                  <item name="form" xsi:type="string">product_form.product_form</item>
+                  <item name="modal" xsi:type="string">configurableModal</item>
+                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+               </argument>
+               <argument name="permissions" xsi:type="object">Magento\ConfigurableProduct\Block\DataProviders\PermissionsData</argument>
+            </arguments>
+         </block>
+         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\Bulk" name="step3" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/bulk.phtml">
+            <arguments>
+               <argument name="config" xsi:type="array">
+                  <item name="form" xsi:type="string">product_form.product_form</item>
+                  <item name="modal" xsi:type="string">configurableModal</item>
+                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+               </argument>
+            </arguments>
+         </block>
+         <block class="Magento\ConfigurableProduct\Block\Adminhtml\Product\Steps\Summary" name="step4" template="Magento_ConfigurableProduct::catalog/product/edit/attribute/steps/summary.phtml">
+            <arguments>
+               <argument name="config" xsi:type="array">
+                  <item name="form" xsi:type="string">product_form.product_form</item>
+                  <item name="modal" xsi:type="string">configurableModal</item>
+                  <item name="dataScope" xsi:type="string">productFormConfigurable</item>
+               </argument>
+            </arguments>
+         </block>
+      </block>
+   </block>
+</container>
+</layout><handle id="adminhtml_order_shipment_addcomment"><body>
    <block class="Magento\Shipping\Block\Adminhtml\View\Comments" name="shipment_comments">
       <block class="Magento\Sales\Block\Adminhtml\Order\Comments\View" name="order_comments" template="Magento_Sales::order/comments/view.phtml"/>
    </block>
@@ -7316,36 +6969,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       <uiComponent name="pagebuilder_video_form"/>
    </referenceContainer>
 </body>
-</handle><handle id="adminhtml_auth_forgotpassword"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">backend_forgotpassword</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">226</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-</body>
-</handle><handle id="adminhtml_auth_login"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">backend_login</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">226</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-</body>
 </handle><handle id="adminhtml_paypal_reports_block"><body>
    <referenceBlock name="adminhtml.paypal.report.grid.container">
       <block class="Magento\Backend\Block\Widget\Grid" name="paypal.report.grid" as="grid">
@@ -7803,6 +7426,11 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       <block class="Magento\Review\Block\Adminhtml\Rating" name="adminhtml.rating.container"/>
    </referenceContainer>
 </body>
+</handle><handle id="adminhtml_url_rewrite_index"><body>
+   <referenceContainer name="content">
+      <uiComponent name="url_rewrite_listing"/>
+   </referenceContainer>
+</body>
 </handle><handle id="sales_order_create_index"><body>
    <referenceContainer name="content">
       <referenceBlock name="shipping_method">
@@ -7884,6 +7512,256 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
       </action>
    </referenceBlock>
 </body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="default" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="default" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+      <argument name="bundle" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="bundle_option" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment/bundle.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="sales_creditmemo_item_price"><body>
+   <referenceBlock name="creditmemo_items">
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_invoice_item_price"><body>
+   <referenceBlock name="invoice_items">
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_create_item_price"><body>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Tax::order/create/items/price/unit.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Tax::order/create/items/price/row.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total_with_discount" template="Magento_Tax::order/create/items/price/total.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="sales_order_item_price"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Tax::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Tax::items/price/row.phtml" group="column"/>
+      <block class="Magento\Tax\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Tax::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="tax_rate_block"><body>
+   <referenceBlock name="adminhtml.tax.rate.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.tax.rate.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">tax_rate_grid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Tax\Model\TaxRateCollection</argument>
+            <argument name="default_sort" xsi:type="string">region_name</argument>
+            <argument name="default_dir" xsi:type="string">ASC</argument>
+            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.catalog.product.set.grid.columnSet" as="grid.columnSet">
+            <arguments>
+               <argument name="id" xsi:type="string">tax_rate_grid</argument>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string">tax/*/edit</item>
+                  <item name="extraParamsTemplate" xsi:type="array">
+                     <item name="rate" xsi:type="string">getTaxCalculationRateId</item>
+                  </item>
+               </argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.code" as="code">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Tax Identifier</argument>
+                  <argument name="filter_index" xsi:type="string">code</argument>
+                  <argument name="index" xsi:type="string">code</argument>
+                  <argument name="column_css_class" xsi:type="string">col-name</argument>
+                  <argument name="header_css_class" xsi:type="string">col-name</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.tax_country_id" as="tax_country_id">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Country</argument>
+                  <argument name="type" xsi:type="string">country</argument>
+                  <argument name="filter_index" xsi:type="string">tax_country_id</argument>
+                  <argument name="index" xsi:type="string">tax_country_id</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.region_name" as="region_name">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">State/Region</argument>
+                  <argument name="filter_index" xsi:type="string">region_name</argument>
+                  <argument name="index" xsi:type="string">region_name</argument>
+                  <argument name="default" xsi:type="string">*</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.tax_postcode" as="tax_postcode">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Zip/Post Code</argument>
+                  <argument name="index" xsi:type="string">tax_postcode</argument>
+                  <argument name="default" xsi:type="string">*</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.catalog.product.set.grid.column.rate" as="rate">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Rate</argument>
+                  <argument name="index" xsi:type="string">rate</argument>
+                  <argument name="type" xsi:type="string">number</argument>
+                  <argument name="default" xsi:type="string">0.00</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Tax\Block\Adminhtml\Rate\Grid\Renderer\Data</argument>
+                  <argument name="column_css_class" xsi:type="string">col-price</argument>
+                  <argument name="header_css_class" xsi:type="string">col-price</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="tax_rate_exportcsv"><update handle="tax_rate_block"/>
+<body>
+   <block class="Magento\Backend\Block\Widget\Grid\Container" name="adminhtml.tax.rate.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</body>
+</handle><handle id="tax_rate_exportxml"><update handle="tax_rate_block"/>
+<body>
+   <block class="Magento\Backend\Block\Widget\Grid\Container" name="adminhtml.tax.rate.container" template="Magento_Backend::widget/grid/container/empty.phtml"/>
+</body>
+</handle><handle id="tax_rate_index"><update handle="formkey"/>
+<update handle="tax_rate_block"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Tax\Block\Adminhtml\Rate\Toolbar\Add" name="adminhtml.tax.rate.container"/>
+   </referenceContainer>
+</body>
+</handle><handle id="tax_rule_block"><body>
+   <referenceBlock name="adminhtml.block.tax.rule.container">
+      <block class="Magento\Backend\Block\Widget\Grid" name="adminhtml.block.tax.rule.grid" as="grid">
+         <arguments>
+            <argument name="id" xsi:type="string">taxRuleGrid</argument>
+            <argument name="dataSource" shared="false" xsi:type="object">Magento\Tax\Model\TaxRuleCollection</argument>
+            <argument name="default_sort" xsi:type="string">tax_rule_id</argument>
+            <argument name="default_dir" xsi:type="string">ASC</argument>
+            <argument name="save_parameters_in_session" xsi:type="string">1</argument>
+         </arguments>
+         <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.block.tax.rule.columnSet" as="grid.columnSet">
+            <arguments>
+               <argument name="rowUrl" xsi:type="array">
+                  <item name="path" xsi:type="string">tax/*/edit</item>
+                  <item name="extraParamsTemplate" xsi:type="array">
+                     <item name="rule" xsi:type="string">getTaxCalculationRuleId</item>
+                  </item>
+               </argument>
+            </arguments>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.code" as="code">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Name</argument>
+                  <argument name="index" xsi:type="string">code</argument>
+                  <argument name="type" xsi:type="string">longtext</argument>
+                  <argument name="filter_index" xsi:type="string">code</argument>
+                  <argument name="column_css_class" xsi:type="string">col-name</argument>
+                  <argument name="header_css_class" xsi:type="string">col-name</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.customer_tax_classes" as="customer_tax_classes">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Customer Tax Class</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">customer_tax_classes</argument>
+                  <argument name="filter_index" xsi:type="string">ctc.customer_tax_class_id</argument>
+                  <argument name="show_missing_option_values" xsi:type="string">1</argument>
+                  <argument name="type" xsi:type="string">options</argument>
+                  <argument name="options" model="Magento\Tax\Model\TaxClass\Source\Customer" xsi:type="options"/>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.product_tax_classes" as="product_tax_classes">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Product Tax Class</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">product_tax_classes</argument>
+                  <argument name="filter_index" xsi:type="string">ptc.product_tax_class_id</argument>
+                  <argument name="show_missing_option_values" xsi:type="string">1</argument>
+                  <argument name="type" xsi:type="string">options</argument>
+                  <argument name="options" model="Magento\Tax\Model\TaxClass\Source\Product" xsi:type="options"/>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.tax_rates_codes" as="tax_rates_codes">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Tax Rate</argument>
+                  <argument name="sortable" xsi:type="string">0</argument>
+                  <argument name="index" xsi:type="string">tax_rates_codes</argument>
+                  <argument name="filter_index" xsi:type="string">rc.code</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+                  <argument name="column_css_class" xsi:type="string">col-title</argument>
+                  <argument name="header_css_class" xsi:type="string">col-title</argument>
+                  <argument name="renderer" xsi:type="string">Magento\Tax\Block\Grid\Renderer\Codes</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.priority" as="priority">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Priority</argument>
+                  <argument name="index" xsi:type="string">priority</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.calculate_subtotal" as="calculate_subtotal">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Subtotal Only</argument>
+                  <argument name="index" xsi:type="string">calculate_subtotal</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+               </arguments>
+            </block>
+            <block class="Magento\Backend\Block\Widget\Grid\Column" name="adminhtml.block.tax.rule.columnSet.position" as="position">
+               <arguments>
+                  <argument name="header" translate="true" xsi:type="string">Sort Order</argument>
+                  <argument name="index" xsi:type="string">position</argument>
+                  <argument name="type" xsi:type="string">text</argument>
+               </arguments>
+            </block>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="tax_rule_edit"><head>
+   <link src="Magento_Tax::js/bootstrap.js"/>
+   <css src="jquery/editableMultiselect/css/jquery.multiselect.css"/>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Tax\Block\Adminhtml\Rule\Edit" name="content.tax_rule_edit"/>
+      <block class="Magento\Tax\Block\Adminhtml\Rule\Edit\Form" name="tax-rule-edit" template="Magento_Tax::rule/edit.phtml"/>
+      <block class="Magento\Tax\Block\Adminhtml\Rate\Form" name="tax-rate-form" template="Magento_Tax::rule/rate/form.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="tax_rule_index"><update handle="tax_rule_block"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Tax\Block\Adminhtml\Rule" name="adminhtml.block.tax.rule.container"/>
+   </referenceContainer>
+</body>
 </handle><handle id="tax_rate_block"><body>
    <referenceBlock name="adminhtml.tax.rate.grid">
       <block class="Magento\Backend\Block\Widget\Grid\Export" name="adminhtml.tax.rate.grid.export" as="grid.export">
@@ -7963,6 +7841,128 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
    <referenceContainer name="content">
       <uiComponent name="bulk_listing"/>
    </referenceContainer>
+</body>
+</handle><handle id="catalog_product_form"><head>
+   <css src="Magento_Weee::styles.css"/>
+</head>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="default" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="default" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\TaxAdjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
+               </item>
+               <item name="weee" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Weee::pricing/adjustment.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="sales_creditmemo_item_price"><body>
+   <referenceBlock name="creditmemo_items">
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_invoice_item_price"><body>
+   <referenceBlock name="invoice_items">
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_create_item_price"><body>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Weee::order/create/items/price/unit.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Weee::order/create/items/price/row.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total_with_discount" template="Magento_Weee::order/create/items/price/total.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="sales_order_creditmemo_new"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_updateqty"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_view"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_new"><body>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_updateqty"><body>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_view"><body>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_item_price"><body>
+   <referenceBlock name="order_items">
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_price" template="Magento_Weee::items/price/unit.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_subtotal" template="Magento_Weee::items/price/row.phtml" group="column"/>
+      <block class="Magento\Weee\Block\Adminhtml\Items\Price\Renderer" name="column_total" template="Magento_Weee::items/price/total.phtml" group="column"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_view"><body>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
 </body>
 </handle><handle id="adminhtml_system_currency_index"><update handle="styles"/>
 <body/>
@@ -8106,7 +8106,17 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706256917;s:6:"expire";i:1737792917;s:4:"t
    </block>
    <block class="Magento\Catalog\Block\Adminhtml\Product\Composite\Configure" template="Magento_Catalog::catalog/product/composite/configure.phtml" name="configure.popup"/>
 </container>
-</layout><handle id="adminhtml_system_config_edit"><head>
+</layout><handle id="faq_question_edit"><body>
+   <referenceContainer name="content">
+      <uiComponent name="faq_question_form"/>
+   </referenceContainer>
+</body>
+</handle><handle id="faq_question_index"><body>
+   <referenceContainer name="content">
+      <uiComponent name="faq_question_listing"/>
+   </referenceContainer>
+</body>
+</handle><handle id="adminhtml_system_config_edit"><head>
    <css src="PayPal_Braintree::styles.css"/>
    <script src="PayPal_Braintree::js/system.js"/>
    <script src="PayPal_Braintree::js/paypalStylingPreview.js"/>

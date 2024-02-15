@@ -1,4 +1,4 @@
-a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"tags";s:37:"fce_LAYOUT_GENERAL_CACHE_TAG,fce_MAGE";}
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1708000726;s:6:"expire";i:1739536726;s:4:"tags";s:37:"fce_LAYOUT_GENERAL_CACHE_TAG,fce_MAGE";}
 <?xml version="1.0"?>
 <layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><handle id="catalog_category_view"><body/>
 </handle><handle id="catalogsearch_advanced_index"><body/>
@@ -469,6 +469,32 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
    </referenceBlock>
 </body>
 </handle><handle id="print"><body/>
+</handle><handle id="default"><body>
+   <referenceContainer name="header-wrapper">
+      <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml">
+         <arguments>
+            <argument name="configProvider" xsi:type="object">Magento\Search\ViewModel\ConfigProvider</argument>
+            <argument name="additionalSearchFormData" xsi:type="object">Magento\Search\ViewModel\AdditionalSearchFormData</argument>
+         </arguments>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="footer_links">
+      <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="catalog/seo/search_terms" name="search-term-popular-link">
+         <arguments>
+            <argument name="label" translate="true" xsi:type="string">Search Terms</argument>
+            <argument name="path" xsi:type="string">search/term/popular</argument>
+         </arguments>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="search_term_popular" layout="1column"><head>
+   <title>Popular Search Terms</title>
+</head>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Search\Block\Term" name="seo.searchterm" template="Magento_Search::term.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
 </handle><handle id="catalog_category_view" layout="2columns-left"><body>
    <referenceContainer name="columns.top">
       <container name="category.view.container" htmlTag="div" htmlClass="category-view" after="-">
@@ -875,32 +901,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </arguments>
    </block>
 </body>
-</handle><handle id="default"><body>
-   <referenceContainer name="header-wrapper">
-      <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml">
-         <arguments>
-            <argument name="configProvider" xsi:type="object">Magento\Search\ViewModel\ConfigProvider</argument>
-            <argument name="additionalSearchFormData" xsi:type="object">Magento\Search\ViewModel\AdditionalSearchFormData</argument>
-         </arguments>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="footer_links">
-      <block class="Magento\Framework\View\Element\Html\Link\Current" ifconfig="catalog/seo/search_terms" name="search-term-popular-link">
-         <arguments>
-            <argument name="label" translate="true" xsi:type="string">Search Terms</argument>
-            <argument name="path" xsi:type="string">search/term/popular</argument>
-         </arguments>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="search_term_popular" layout="1column"><head>
-   <title>Popular Search Terms</title>
-</head>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Search\Block\Term" name="seo.searchterm" template="Magento_Search::term.phtml" cacheable="false"/>
-   </referenceContainer>
-</body>
 </handle><handle id="catalog_product_view"><body>
    <referenceContainer name="product.info.extrahint">
       <block class="Magento\CatalogInventory\Block\Qtyincrements" name="product.info.extrahint.qtyincrements" template="Magento_CatalogInventory::qtyincrements.phtml"/>
@@ -915,99 +915,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
    <referenceContainer name="product.info.virtual.extra">
       <block class="Magento\CatalogInventory\Block\Stockqty\DefaultStockqty" name="product.info.virtual.extra.catalog_inventory_stockqty_default" template="Magento_CatalogInventory::stockqty/default.phtml"/>
    </referenceContainer>
-</body>
-</handle><handle id="catalogsearch_advanced_index" layout="1column"><head>
-   <title>Advanced Search</title>
-</head>
-<update handle="page_calendar"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\CatalogSearch\Block\Advanced\Form" name="catalogsearch_advanced_form" template="Magento_CatalogSearch::advanced/form.phtml"/>
-      <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
-   </referenceContainer>
-</body>
-</handle><handle id="catalogsearch_advanced_result" layout="2columns-left"><body>
-   <attribute name="class" value="page-products"/>
-   <referenceBlock name="page.main.title">
-      <action method="setPageTitle">
-         <argument translate="true" name="title" xsi:type="string">Catalog Advanced Search</argument>
-      </action>
-   </referenceBlock>
-   <referenceContainer name="content">
-      <block class="Magento\CatalogSearch\Block\Advanced\Result" name="catalogsearch_advanced_result" template="Magento_CatalogSearch::advanced/result.phtml">
-         <block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="Magento_Catalog::product/list.phtml">
-            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
-               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
-            </block>
-            <action method="setToolbarBlockName">
-               <argument name="name" xsi:type="string">product_list_toolbar</argument>
-            </action>
-            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
-               <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
-            </block>
-            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalogsearch.product.addto" as="addto">
-               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="catalogsearch.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
-            </block>
-         </block>
-         <action method="setListOrders"/>
-         <action method="setListModes"/>
-         <action method="setListCollection"/>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="search_result_list">
-      <arguments>
-         <argument name="viewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="catalogsearch_result_index" layout="2columns-left"><body>
-   <attribute name="class" value="page-products"/>
-   <referenceContainer name="content">
-      <block class="Magento\CatalogSearch\Block\Result" name="search.result" template="Magento_CatalogSearch::result.phtml">
-         <block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="Magento_Catalog::product/list.phtml">
-            <arguments>
-               <argument name="positioned" xsi:type="string">positions:list-secondary</argument>
-               <argument name="viewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
-            </arguments>
-            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
-               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
-            </block>
-            <action method="setToolbarBlockName">
-               <argument name="name" xsi:type="string">product_list_toolbar</argument>
-            </action>
-            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
-               <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
-            </block>
-            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalogsearch.product.addto" as="addto">
-               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="catalogsearch.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
-            </block>
-         </block>
-         <action method="setListOrders"/>
-         <action method="setListModes"/>
-         <action method="setListCollection"/>
-      </block>
-      <block class="Magento\Framework\View\Element\Template" name="search.search_terms_log" template="Magento_CatalogSearch::search_terms_log.phtml">
-         <arguments>
-            <argument name="search_terms_log" xsi:type="object">Magento\CatalogSearch\Block\SearchTermsLog</argument>
-         </arguments>
-      </block>
-   </referenceContainer>
-</body>
-</handle><handle id="default"><body>
-   <referenceBlock name="top.search">
-      <block class="Magento\Framework\View\Element\Template" name="advanced-search-link" template="Magento_CatalogSearch::advanced/link.phtml"/>
-   </referenceBlock>
-   <referenceBlock name="footer_links">
-      <block class="Magento\Framework\View\Element\Html\Link\Current" name="catalog-search-advanced-link">
-         <arguments>
-            <argument name="label" translate="true" xsi:type="string">Advanced Search</argument>
-            <argument name="path" xsi:type="string">catalogsearch/advanced</argument>
-            <argument name="attributes" xsi:type="array">
-               <item name="data-action" xsi:type="string">advanced-search</item>
-            </argument>
-         </arguments>
-      </block>
-   </referenceBlock>
 </body>
 </handle><handle id="catalog_category_view" layout="2columns-left"><update handle="msrp_popup"/>
 <body/>
@@ -1120,204 +1027,97 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
 <body/>
 </handle><handle id="wishlist_shared_index"><update handle="msrp_popup"/>
 <body/>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="bundle" xsi:type="array">
-         <item name="prices" xsi:type="array">
-            <item name="tier_price" xsi:type="array">
-               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/tier_prices.phtml</item>
-            </item>
-            <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\Bundle\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/final_price.phtml</item>
-            </item>
-            <item name="bundle_option" xsi:type="array">
-               <item name="amount_render_template" xsi:type="string">Magento_Bundle::product/price/selection/amount.phtml</item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="catalog_product_view_type_bundle"><body>
-   <attribute name="class" value="page-product-bundle"/>
-   <referenceBlock name="product.info">
-      <block class="Magento\Catalog\Block\Product\View" name="bundle.summary" as="form_bottom" template="Magento_Bundle::catalog/product/view/summary.phtml">
-         <block class="Magento\Catalog\Pricing\Render" name="product.price.render.bundle.customization">
-            <arguments>
-               <argument name="price_render" xsi:type="string">product.price.render.default</argument>
-               <argument name="price_type_code" xsi:type="string">configured_price</argument>
-               <argument name="zone" xsi:type="string">item_view</argument>
-            </arguments>
-         </block>
-         <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart.bundle" as="addtocart" template="Magento_Catalog::product/view/addtocart.phtml">
-            <block class="Magento\Catalog\Block\ShortcutButtons\InCatalog" name="addtocart.shortcut.buttons"/>
-         </block>
-         <block class="Magento\Catalog\Block\Product\View" name="product.info.addto.bundle" as="addto" template="Magento_Catalog::product/view/addto.phtml"/>
-      </block>
-   </referenceBlock>
-   <referenceBlock name="product.info.options.wrapper">
-      <block class="Magento\Catalog\Block\Product\View" name="bundle.product.view.options.notice" template="Magento_Bundle::catalog/product/view/options/notice.phtml"/>
-      <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle.options" as="type_bundle_options" template="Magento_Bundle::catalog/product/view/type/bundle/options.phtml" before="-">
-         <container name="product.info.bundle.options.top" as="product_info_bundle_options_top">
-            <block class="Magento\Catalog\Block\Product\View" name="bundle.back.button" as="backButton" before="-" template="Magento_Bundle::catalog/product/view/backbutton.phtml"/>
-         </container>
-         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select">
-            <arguments>
-               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
-               <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
-            </arguments>
-         </block>
-         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
-         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio">
-            <arguments>
-               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
-               <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
-            </arguments>
-         </block>
-         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox">
-            <arguments>
-               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
-            </arguments>
-         </block>
-      </block>
-   </referenceBlock>
-   <referenceBlock name="product.info.form.options">
-      <container name="bundle.product.options.wrapper" htmlTag="div" htmlClass="bundle-options-wrapper"/>
-   </referenceBlock>
-   <move element="product.info.options.wrapper" destination="bundle.product.options.wrapper" before="-"/>
-   <move element="product.info.options.wrapper.bottom" destination="bundle.product.options.wrapper" after="product.info.options.wrapper"/>
-   <move element="product.price.tier" destination="product.info.options.wrapper.bottom" before="-"/>
-   <referenceBlock name="product.info.options.wrapper.bottom">
-      <block class="Magento\CatalogInventory\Block\Qtyincrements" name="product.info.qtyincrements" before="-" template="Magento_CatalogInventory::qtyincrements.phtml"/>
-      <action method="unsetChild">
-         <argument name="block" xsi:type="string">product.info.addtocart</argument>
-      </action>
-      <action method="setHideRequiredNotice">
-         <argument name="flag" xsi:type="string">1</argument>
-      </action>
-      <action method="unsetChild">
-         <argument name="block" xsi:type="string">product.info.addto</argument>
+</handle><handle id="catalogsearch_advanced_index" layout="1column"><head>
+   <title>Advanced Search</title>
+</head>
+<update handle="page_calendar"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\CatalogSearch\Block\Advanced\Form" name="catalogsearch_advanced_form" template="Magento_CatalogSearch::advanced/form.phtml"/>
+      <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="catalogsearch_advanced_result" layout="2columns-left"><body>
+   <attribute name="class" value="page-products"/>
+   <referenceBlock name="page.main.title">
+      <action method="setPageTitle">
+         <argument translate="true" name="title" xsi:type="string">Catalog Advanced Search</argument>
       </action>
    </referenceBlock>
    <referenceContainer name="content">
-      <container name="bundle.options.container" htmlTag="div" htmlClass="bundle-options-container" after="product.info.media"/>
-   </referenceContainer>
-   <referenceContainer name="product.info.type">
-      <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle" as="product_type_data" template="Magento_Bundle::catalog/product/view/type/bundle.phtml"/>
-      <container name="product.info.bundle.extra" after="product.info.bundle" as="product_type_data_extra" label="Product Extra Info"/>
-   </referenceContainer>
-   <referenceContainer name="product.info.main">
-      <block class="Magento\Catalog\Block\Product\View" name="customize.button" as="customize_button" template="Magento_Bundle::catalog/product/view/customize.phtml" after="product.info.price"/>
-   </referenceContainer>
-   <move element="product.info" destination="bundle.options.container" before="-"/>
-</body>
-</handle><handle id="catalog_product_view_type_simple"><body>
-   <referenceBlock name="product.info.upsell">
-      <action method="setItemLimit">
-         <argument name="type" xsi:type="string">bundle</argument>
-         <argument name="limit" xsi:type="string">4</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_cart_configure_type_bundle"><update handle="catalog_product_view_type_bundle"/>
-<body>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="bundle_cart_configure_head_components" template="Magento_Checkout::js/components.phtml"/>
-   </referenceBlock>
-   <referenceBlock name="product.info.addtocart.bundle">
-      <action method="setTemplate">
-         <argument name="template" xsi:type="string">Magento_Checkout::cart/item/configure/updatecart.phtml</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_cart_item_renderers"><body>
-   <referenceBlock name="checkout.cart.item.renderers">
-      <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.bundle" as="bundle" template="Magento_Checkout::cart/item/default.phtml">
-         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.bundle.actions" as="actions">
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.bundle.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.bundle.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+      <block class="Magento\CatalogSearch\Block\Advanced\Result" name="catalogsearch_advanced_result" template="Magento_CatalogSearch::advanced/result.phtml">
+         <block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="Magento_Catalog::product/list.phtml">
+            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="setToolbarBlockName">
+               <argument name="name" xsi:type="string">product_list_toolbar</argument>
+            </action>
+            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+               <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalogsearch.product.addto" as="addto">
+               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="catalogsearch.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
+            </block>
          </block>
+         <action method="setListOrders"/>
+         <action method="setListModes"/>
+         <action method="setListCollection"/>
       </block>
+   </referenceContainer>
+   <referenceBlock name="search_result_list">
+      <arguments>
+         <argument name="viewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
+      </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_onepage_review_item_renderers"><body>
-   <referenceBlock name="checkout.onepage.review.item.renderers">
-      <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.onepage.review.item.renderers.bundle" as="bundle" template="Magento_Checkout::onepage/review/item.phtml"/>
-   </referenceBlock>
+</handle><handle id="catalogsearch_result_index" layout="2columns-left"><body>
+   <attribute name="class" value="page-products"/>
+   <referenceContainer name="content">
+      <block class="Magento\CatalogSearch\Block\Result" name="search.result" template="Magento_CatalogSearch::result.phtml">
+         <block class="Magento\CatalogSearch\Block\SearchResult\ListProduct" name="search_result_list" template="Magento_Catalog::product/list.phtml">
+            <arguments>
+               <argument name="positioned" xsi:type="string">positions:list-secondary</argument>
+               <argument name="viewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\OptionsData</argument>
+            </arguments>
+            <block class="Magento\Catalog\Block\Product\ProductList\Toolbar" name="product_list_toolbar" template="Magento_Catalog::product/list/toolbar.phtml">
+               <block class="Magento\Theme\Block\Html\Pager" name="product_list_toolbar_pager"/>
+            </block>
+            <action method="setToolbarBlockName">
+               <argument name="name" xsi:type="string">product_list_toolbar</argument>
+            </action>
+            <block class="Magento\Framework\View\Element\RendererList" name="category.product.type.details.renderers" as="details.renderers">
+               <block class="Magento\Framework\View\Element\Template" name="category.product.type.details.renderers.default" as="default"/>
+            </block>
+            <block class="Magento\Catalog\Block\Product\ProductList\Item\Container" name="catalogsearch.product.addto" as="addto">
+               <block class="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare" name="catalogsearch.product.addto.compare" as="compare" template="Magento_Catalog::product/list/addto/compare.phtml"/>
+            </block>
+         </block>
+         <action method="setListOrders"/>
+         <action method="setListModes"/>
+         <action method="setListCollection"/>
+      </block>
+      <block class="Magento\Framework\View\Element\Template" name="search.search_terms_log" template="Magento_CatalogSearch::search_terms_log.phtml">
+         <arguments>
+            <argument name="search_terms_log" xsi:type="object">Magento\CatalogSearch\Block\SearchTermsLog</argument>
+         </arguments>
+      </block>
+   </referenceContainer>
 </body>
 </handle><handle id="default"><body>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="bundle_checkout_page_head_components" template="Magento_Bundle::js/components.phtml"/>
+   <referenceBlock name="top.search">
+      <block class="Magento\Framework\View\Element\Template" name="advanced-search-link" template="Magento_CatalogSearch::advanced/link.phtml"/>
    </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_creditmemo_renderers"><body>
-   <referenceBlock name="sales.email.order.creditmemo.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/creditmemo/default.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_invoice_renderers"><body>
-   <referenceBlock name="sales.email.order.invoice.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/invoice/default.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_renderers"><body>
-   <referenceBlock name="sales.email.order.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/order/default.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_shipment_renderers"><body>
-   <referenceBlock name="sales.email.order.shipment.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/shipment/default.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_renderers"><body>
-   <referenceBlock name="sales.order.creditmemo.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/creditmemo/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_renderers"><body>
-   <referenceBlock name="sales.order.invoice.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/invoice/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_item_renderers"><body>
-   <referenceBlock name="sales.order.items.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.items.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/items/renderer.phtml"/>
-   </referenceBlock>
-   <referenceBlock name="sales.order.items.renderers.bundle">
-      <arguments>
-         <argument name="view_model" xsi:type="object">Magento\Bundle\ViewModel\Sales\Order\Items\Renderer</argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_creditmemo_renderers"><body>
-   <referenceBlock name="sales.order.print.creditmemo.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/creditmemo/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_invoice_renderers"><body>
-   <referenceBlock name="sales.order.print.invoice.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/invoice/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_renderers"><body>
-   <referenceBlock name="sales.order.print.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/items/renderer.phtml"/>
-   </referenceBlock>
-   <referenceBlock name="sales.order.print.renderers.bundle">
-      <arguments>
-         <argument name="view_model" xsi:type="object">Magento\Bundle\ViewModel\Sales\Order\Items\Renderer</argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_shipment_renderers"><body>
-   <referenceBlock name="sales.order.print.shipment.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/shipment/items/renderer.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_shipment_renderers"><body>
-   <referenceBlock name="sales.order.shipment.renderers">
-      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/shipment/items/renderer.phtml"/>
+   <referenceBlock name="footer_links">
+      <block class="Magento\Framework\View\Element\Html\Link\Current" name="catalog-search-advanced-link">
+         <arguments>
+            <argument name="label" translate="true" xsi:type="string">Advanced Search</argument>
+            <argument name="path" xsi:type="string">catalogsearch/advanced</argument>
+            <argument name="attributes" xsi:type="array">
+               <item name="data-action" xsi:type="string">advanced-search</item>
+            </argument>
+         </arguments>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="checkout_index_index"><body>
@@ -2062,126 +1862,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       <block class="Magento\Sales\Block\Order\Info" as="info" name="sales.order.info" after="sales.order.view"/>
    </referenceContainer>
    <block class="Magento\Framework\View\Element\Template" name="additional.product.info" template="Magento_Theme::template.phtml"/>
-</body>
-</handle><handle id="catalog_product_view_type_downloadable"><body>
-   <attribute name="class" value="page-product-downloadable"/>
-   <referenceContainer name="product.info.main">
-      <block class="Magento\Downloadable\Block\Catalog\Product\Samples" name="product.info.downloadable.samples" as="samples" template="Magento_Downloadable::catalog/product/samples.phtml" after="product.price.tier"/>
-   </referenceContainer>
-   <referenceContainer name="product.info.type">
-      <block class="Magento\Downloadable\Block\Catalog\Product\View\Type" name="product.info.downloadable" as="product_type_data" template="Magento_Downloadable::catalog/product/type.phtml">
-         <block class="Magento\CatalogInventory\Block\Stockqty\DefaultStockqty" name="product.info.downloadable.extra" as="product_type_data_extra" template="Magento_CatalogInventory::stockqty/default.phtml"/>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="product.info.options.wrapper">
-      <block class="Magento\Downloadable\Block\Catalog\Product\Links" name="product.info.downloadable.options" as="type_downloadable_options" before="-" template="Magento_Downloadable::catalog/product/links.phtml">
-         <block class="Magento\Catalog\Pricing\Render" name="product.price.link" after="product.info.downloadable.options">
-            <arguments>
-               <argument name="price_render" xsi:type="string">product.price.render.default</argument>
-               <argument name="price_type_code" xsi:type="string">link_price</argument>
-            </arguments>
-         </block>
-      </block>
-   </referenceBlock>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="downloadable_page_head_components" template="Magento_Downloadable::js/components.phtml"/>
-   </referenceBlock>
-   <move element="product.info" destination="content" after="product.info.media"/>
-   <move element="product.info.social" destination="product.info.options.wrapper.bottom" after="-"/>
-</body>
-</handle><handle id="checkout_cart_configure_type_downloadable"><update handle="catalog_product_view_type_downloadable"/>
-<body/>
-</handle><handle id="checkout_cart_item_renderers"><body>
-   <referenceBlock name="checkout.cart.item.renderers">
-      <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.downloadable" as="downloadable" template="Magento_Checkout::cart/item/default.phtml">
-         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.downloadable.actions" as="actions">
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.downloadable.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.downloadable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_onepage_review_item_renderers"><body>
-   <referenceBlock name="checkout.onepage.review.item.renderers">
-      <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" name="checkout.onepage.review.item.renderers.downloadable" as="downloadable" template="Magento_Checkout::onepage/review/item.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_onepage_success"><body>
-   <referenceBlock name="checkout.success">
-      <block class="Magento\Downloadable\Block\Checkout\Success" name="downloadable.checkout.success" template="Magento_Downloadable::checkout/success.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_account"><body>
-   <referenceBlock name="customer_account_navigation">
-      <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-downloadable-products-link">
-         <arguments>
-            <argument name="path" xsi:type="string">downloadable/customer/products</argument>
-            <argument name="label" translate="true" xsi:type="string">My Downloadable Products</argument>
-            <argument name="sortOrder" xsi:type="number">217</argument>
-         </arguments>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="downloadable_customer_products"><update handle="customer_account"/>
-<body>
-   <referenceContainer name="content">
-      <block class="Magento\Downloadable\Block\Customer\Products\ListProducts" name="downloadable_customer_products_list" template="Magento_Downloadable::customer/products/list.phtml" cacheable="false"/>
-   </referenceContainer>
-   <referenceBlock name="root">
-      <action method="setHeaderTitle">
-         <argument translate="true" name="title" xsi:type="string">My Downloadable Products</argument>
-      </action>
-   </referenceBlock>
-</body>
-</handle><handle id="multishipping_checkout_success"><body>
-   <referenceBlock name="checkout_success">
-      <block class="Magento\Downloadable\Block\Checkout\Success" name="downloadable.checkout.success" template="Magento_Downloadable::checkout/success.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_creditmemo_renderers"><body>
-   <referenceBlock name="sales.email.order.creditmemo.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Downloadable" name="sales.email.order.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/creditmemo/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_invoice_renderers"><body>
-   <referenceBlock name="sales.email.order.invoice.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Downloadable" name="sales.email.order.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/invoice/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_renderers"><body>
-   <referenceBlock name="sales.email.order.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Order\Downloadable" name="sales.email.order.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/order/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo_renderers"><body>
-   <referenceBlock name="sales.order.creditmemo.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/creditmemo/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice_renderers"><body>
-   <referenceBlock name="sales.order.invoice.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/invoice/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_item_renderers"><body>
-   <referenceBlock name="sales.order.items.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.items.renderer.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_creditmemo_renderers"><body>
-   <referenceBlock name="sales.order.print.creditmemo.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/creditmemo/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_invoice_renderers"><body>
-   <referenceBlock name="sales.order.print.invoice.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/invoice/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_print_renderers"><body>
-   <referenceBlock name="sales.order.print.renderers">
-      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/items/renderer/downloadable.phtml"/>
-   </referenceBlock>
 </body>
 </handle><handle id="catalog_category_view"><body>
    <referenceContainer name="content">
@@ -3060,299 +2740,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </block>
    </referenceContainer>
 </body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="configurable" xsi:type="array">
-         <item name="prices" xsi:type="array">
-            <item name="tier_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\TierPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/tier_price.phtml</item>
-            </item>
-            <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/final_price.phtml</item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="catalog_product_view_type_configurable"><body>
-   <attribute name="class" value="page-product-configurable"/>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="configurableproduct_product_view_head_components" template="Magento_ConfigurableProduct::js/components.phtml"/>
-   </referenceBlock>
-   <referenceContainer name="product.info.type">
-      <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.configurable" as="product_type_data" template="Magento_Catalog::product/view/type/default.phtml"/>
-      <container name="product.info.configurable.extra" after="product.info.configurable" as="product_type_data_extra" label="Product Extra Info">
-         <block class="Magento\ConfigurableProduct\Block\Stockqty\Type\Configurable" name="product.info.configurable.extra.catalog_inventory_stockqty_composite" template="Magento_CatalogInventory::stockqty/composite.phtml"/>
-      </container>
-   </referenceContainer>
-   <referenceBlock name="product.info.options.wrapper">
-      <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="Magento_ConfigurableProduct::product/view/type/options/configurable.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_cart_configure_type_configurable"><head>
-   <link src="Magento_ConfigurableProduct::js/configurable-customer-data.js"/>
-</head>
-<update handle="catalog_product_view_type_configurable"/>
-<body/>
-</handle><handle id="checkout_cart_item_renderers"><body>
-   <referenceBlock name="checkout.cart.item.renderers">
-      <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.cart.item.renderers.configurable" as="configurable" template="Magento_Checkout::cart/item/default.phtml">
-         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.configurable.actions" as="actions">
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.configurable.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.configurable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
-         </block>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_onepage_review_item_renderers"><body>
-   <referenceBlock name="checkout.onepage.review.item.renderers">
-      <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.onepage.review.item.renderers.configurable" as="configurable" template="Magento_Checkout::onepage/review/item.phtml" cacheable="false"/>
-   </referenceBlock>
-</body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="default" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="default" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
-               </item>
-            </item>
-         </item>
-      </argument>
-      <argument name="bundle" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="bundle_option" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment/bundle.phtml</item>
-               </item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="checkout_cart_index"><body>
-   <referenceBlock name="checkout.cart.shipping">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="block-summary" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="block-rates" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="price" xsi:type="array">
-                              <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
-                              <item name="displayArea" xsi:type="string">price</item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-   <referenceBlock name="checkout.cart.totals">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="block-totals" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="subtotal" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/subtotal</item>
-                        <item name="config" xsi:type="array">
-                           <item name="template" xsi:type="string">Magento_Tax/checkout/summary/subtotal</item>
-                           <item name="excludingTaxMessage" translate="true" xsi:type="string">(Excl. Tax)</item>
-                           <item name="includingTaxMessage" translate="true" xsi:type="string">(Incl. Tax)</item>
-                        </item>
-                     </item>
-                     <item name="shipping" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/shipping</item>
-                        <item name="sortOrder" xsi:type="string">20</item>
-                        <item name="config" xsi:type="array">
-                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/shipping</item>
-                           <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
-                           <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
-                        </item>
-                     </item>
-                     <item name="before_grandtotal" xsi:type="array">
-                        <item name="component" xsi:type="string">uiComponent</item>
-                        <item name="sortOrder" xsi:type="string">30</item>
-                        <item name="children" xsi:type="array">
-                                        
-                                    </item>
-                     </item>
-                     <item name="tax" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/tax</item>
-                        <item name="config" xsi:type="array">
-                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/tax</item>
-                           <item name="title" translate="true" xsi:type="string">Tax</item>
-                        </item>
-                     </item>
-                     <item name="grand-total" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/grand-total</item>
-                        <item name="config" xsi:type="array">
-                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/grand-total</item>
-                           <item name="exclTaxLabel" translate="true" xsi:type="string">Order Total Excl. Tax</item>
-                           <item name="inclTaxLabel" translate="true" xsi:type="string">Order Total Incl. Tax</item>
-                           <item name="title" translate="true" xsi:type="string">Order Total</item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_cart_sidebar_total_renderers"><body>
-   <referenceBlock name="minicart">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="minicart_content" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="subtotal.container" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="subtotal" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="subtotal.totals" xsi:type="array">
-                                    <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/minicart/subtotal/totals</item>
-                                    <item name="config" xsi:type="array">
-                                       <item name="template" xsi:type="string">Magento_Tax/checkout/minicart/subtotal/totals</item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_index_index"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="steps" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="shipping-step" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="shippingAddress" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="price" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
-                                          <item name="displayArea" xsi:type="string">price</item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                     <item name="sidebar" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="summary" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="totals" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="subtotal" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/subtotal</item>
-                                          <item name="config" xsi:type="array">
-                                             <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
-                                             <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
-                                          </item>
-                                       </item>
-                                       <item name="shipping" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/shipping</item>
-                                          <item name="sortOrder" xsi:type="string">20</item>
-                                          <item name="config" xsi:type="array">
-                                             <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
-                                             <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
-                                          </item>
-                                       </item>
-                                       <item name="before_grandtotal" xsi:type="array">
-                                          <item name="component" xsi:type="string">uiComponent</item>
-                                          <item name="sortOrder" xsi:type="string">30</item>
-                                          <item name="children" xsi:type="array">
-                                                                
-                                                            </item>
-                                       </item>
-                                       <item name="tax" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/tax</item>
-                                          <item name="config" xsi:type="array">
-                                             <item name="title" translate="true" xsi:type="string">Tax</item>
-                                          </item>
-                                       </item>
-                                       <item name="grand-total" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/grand-total</item>
-                                          <item name="config" xsi:type="array">
-                                             <item name="exclTaxLabel" translate="true" xsi:type="string">Order Total Excl. Tax</item>
-                                             <item name="inclTaxLabel" translate="true" xsi:type="string">Order Total Incl. Tax</item>
-                                             <item name="basicCurrencyMessage" translate="true" xsi:type="string">You will be charged for</item>
-                                             <item name="title" translate="true" xsi:type="string">Order Total</item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                                 <item name="cart_items" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="details" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="subtotal" xsi:type="array">
-                                                <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
-                                             </item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_item_price_renderers"><body>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Magento_Tax::item/price/unit.phtml"/>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="checkout.item.price.row" template="Magento_Tax::item/price/row.phtml"/>
-</body>
-</handle><handle id="sales_email_item_price"><body>
-   <referenceBlock name="items">
-      <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_price" template="Magento_Tax::email/items/price/row.phtml">
-         <arguments>
-            <argument name="zone" xsi:type="string">email</argument>
-         </arguments>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_item_price"><body>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Tax::item/price/unit.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">sales</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Tax::item/price/row.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">sales</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total_after_discount" template="Magento_Tax::item/price/total_after_discount.phtml"/>
-</body>
 </handle><handle id="contact_index_index" layout="1column"><head>
    <title>Contact Us</title>
 </head>
@@ -3389,6 +2776,126 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
    <referenceContainer name="root">
       <block class="Magento\Robots\Block\Data" name="robotsData"/>
    </referenceContainer>
+</body>
+</handle><handle id="catalog_product_view_type_downloadable"><body>
+   <attribute name="class" value="page-product-downloadable"/>
+   <referenceContainer name="product.info.main">
+      <block class="Magento\Downloadable\Block\Catalog\Product\Samples" name="product.info.downloadable.samples" as="samples" template="Magento_Downloadable::catalog/product/samples.phtml" after="product.price.tier"/>
+   </referenceContainer>
+   <referenceContainer name="product.info.type">
+      <block class="Magento\Downloadable\Block\Catalog\Product\View\Type" name="product.info.downloadable" as="product_type_data" template="Magento_Downloadable::catalog/product/type.phtml">
+         <block class="Magento\CatalogInventory\Block\Stockqty\DefaultStockqty" name="product.info.downloadable.extra" as="product_type_data_extra" template="Magento_CatalogInventory::stockqty/default.phtml"/>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="product.info.options.wrapper">
+      <block class="Magento\Downloadable\Block\Catalog\Product\Links" name="product.info.downloadable.options" as="type_downloadable_options" before="-" template="Magento_Downloadable::catalog/product/links.phtml">
+         <block class="Magento\Catalog\Pricing\Render" name="product.price.link" after="product.info.downloadable.options">
+            <arguments>
+               <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+               <argument name="price_type_code" xsi:type="string">link_price</argument>
+            </arguments>
+         </block>
+      </block>
+   </referenceBlock>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="downloadable_page_head_components" template="Magento_Downloadable::js/components.phtml"/>
+   </referenceBlock>
+   <move element="product.info" destination="content" after="product.info.media"/>
+   <move element="product.info.social" destination="product.info.options.wrapper.bottom" after="-"/>
+</body>
+</handle><handle id="checkout_cart_configure_type_downloadable"><update handle="catalog_product_view_type_downloadable"/>
+<body/>
+</handle><handle id="checkout_cart_item_renderers"><body>
+   <referenceBlock name="checkout.cart.item.renderers">
+      <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.downloadable" as="downloadable" template="Magento_Checkout::cart/item/default.phtml">
+         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.downloadable.actions" as="actions">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.downloadable.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.downloadable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_onepage_review_item_renderers"><body>
+   <referenceBlock name="checkout.onepage.review.item.renderers">
+      <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" name="checkout.onepage.review.item.renderers.downloadable" as="downloadable" template="Magento_Checkout::onepage/review/item.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_onepage_success"><body>
+   <referenceBlock name="checkout.success">
+      <block class="Magento\Downloadable\Block\Checkout\Success" name="downloadable.checkout.success" template="Magento_Downloadable::checkout/success.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="customer_account"><body>
+   <referenceBlock name="customer_account_navigation">
+      <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-downloadable-products-link">
+         <arguments>
+            <argument name="path" xsi:type="string">downloadable/customer/products</argument>
+            <argument name="label" translate="true" xsi:type="string">My Downloadable Products</argument>
+            <argument name="sortOrder" xsi:type="number">217</argument>
+         </arguments>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="downloadable_customer_products"><update handle="customer_account"/>
+<body>
+   <referenceContainer name="content">
+      <block class="Magento\Downloadable\Block\Customer\Products\ListProducts" name="downloadable_customer_products_list" template="Magento_Downloadable::customer/products/list.phtml" cacheable="false"/>
+   </referenceContainer>
+   <referenceBlock name="root">
+      <action method="setHeaderTitle">
+         <argument translate="true" name="title" xsi:type="string">My Downloadable Products</argument>
+      </action>
+   </referenceBlock>
+</body>
+</handle><handle id="multishipping_checkout_success"><body>
+   <referenceBlock name="checkout_success">
+      <block class="Magento\Downloadable\Block\Checkout\Success" name="downloadable.checkout.success" template="Magento_Downloadable::checkout/success.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_creditmemo_renderers"><body>
+   <referenceBlock name="sales.email.order.creditmemo.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Downloadable" name="sales.email.order.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/creditmemo/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_invoice_renderers"><body>
+   <referenceBlock name="sales.email.order.invoice.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Downloadable" name="sales.email.order.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/invoice/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_renderers"><body>
+   <referenceBlock name="sales.email.order.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Email\Items\Order\Downloadable" name="sales.email.order.renderers.downloadable" as="downloadable" template="Magento_Downloadable::email/order/items/order/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_renderers"><body>
+   <referenceBlock name="sales.order.creditmemo.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/creditmemo/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_renderers"><body>
+   <referenceBlock name="sales.order.invoice.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/invoice/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_item_renderers"><body>
+   <referenceBlock name="sales.order.items.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.items.renderer.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_creditmemo_renderers"><body>
+   <referenceBlock name="sales.order.print.creditmemo.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.creditmemo.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/creditmemo/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_invoice_renderers"><body>
+   <referenceBlock name="sales.order.print.invoice.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.invoice.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/invoice/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_renderers"><body>
+   <referenceBlock name="sales.order.print.renderers">
+      <block class="Magento\Downloadable\Block\Sales\Order\Item\Renderer\Downloadable" name="sales.order.print.renderers.downloadable" as="downloadable" template="Magento_Downloadable::sales/order/items/renderer/downloadable.phtml"/>
+   </referenceBlock>
 </body>
 </handle><handle id="checkout_cart_index"><body>
    <referenceBlock name="checkout.cart.shipping">
@@ -3454,379 +2961,202 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
 </body>
 </handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
    <arguments>
-      <argument name="grouped" xsi:type="array">
+      <argument name="bundle" xsi:type="array">
          <item name="prices" xsi:type="array">
+            <item name="tier_price" xsi:type="array">
+               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/tier_prices.phtml</item>
+            </item>
             <item name="final_price" xsi:type="array">
-               <item name="render_class" xsi:type="string">Magento\Catalog\Pricing\Render\FinalPriceBox</item>
-               <item name="render_template" xsi:type="string">Magento_GroupedProduct::product/price/final_price.phtml</item>
+               <item name="render_class" xsi:type="string">Magento\Bundle\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_Bundle::product/price/final_price.phtml</item>
+            </item>
+            <item name="bundle_option" xsi:type="array">
+               <item name="amount_render_template" xsi:type="string">Magento_Bundle::product/price/selection/amount.phtml</item>
             </item>
          </item>
       </argument>
    </arguments>
 </referenceBlock>
-</layout><handle id="catalog_product_rss_feed_renderer_list"><body>
-   <block class="Magento\Framework\Pricing\Render" name="product.price.render.grouped">
-      <arguments>
-         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
-      </arguments>
-   </block>
-</body>
-</handle><handle id="catalog_product_view_type_grouped"><body>
-   <attribute name="class" value="page-product-grouped"/>
-   <referenceContainer name="product.info.form.content">
-      <block class="Magento\GroupedProduct\Block\Product\View\Type\Grouped" name="product.info.grouped" before="product.info.addtocart" template="Magento_GroupedProduct::product/view/type/grouped.phtml"/>
-      <container name="product.info.grouped.extra" after="product.info.grouped" before="product.info.grouped" as="product_type_data_extra" label="Product Extra Info"/>
-   </referenceContainer>
-   <referenceContainer name="product.info.grouped.extra">
-      <block class="Magento\GroupedProduct\Block\Stockqty\Type\Grouped" name="product.info.grouped.stock-composite" template="Magento_CatalogInventory::stockqty/composite.phtml"/>
+</layout><handle id="catalog_product_view_type_bundle"><body>
+   <attribute name="class" value="page-product-bundle"/>
+   <referenceBlock name="product.info">
+      <block class="Magento\Catalog\Block\Product\View" name="bundle.summary" as="form_bottom" template="Magento_Bundle::catalog/product/view/summary.phtml">
+         <block class="Magento\Catalog\Pricing\Render" name="product.price.render.bundle.customization">
+            <arguments>
+               <argument name="price_render" xsi:type="string">product.price.render.default</argument>
+               <argument name="price_type_code" xsi:type="string">configured_price</argument>
+               <argument name="zone" xsi:type="string">item_view</argument>
+            </arguments>
+         </block>
+         <block class="Magento\Catalog\Block\Product\View" name="product.info.addtocart.bundle" as="addtocart" template="Magento_Catalog::product/view/addtocart.phtml">
+            <block class="Magento\Catalog\Block\ShortcutButtons\InCatalog" name="addtocart.shortcut.buttons"/>
+         </block>
+         <block class="Magento\Catalog\Block\Product\View" name="product.info.addto.bundle" as="addto" template="Magento_Catalog::product/view/addto.phtml"/>
+      </block>
+   </referenceBlock>
+   <referenceBlock name="product.info.options.wrapper">
+      <block class="Magento\Catalog\Block\Product\View" name="bundle.product.view.options.notice" template="Magento_Bundle::catalog/product/view/options/notice.phtml"/>
+      <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle.options" as="type_bundle_options" template="Magento_Bundle::catalog/product/view/type/bundle/options.phtml" before="-">
+         <container name="product.info.bundle.options.top" as="product_info_bundle_options_top">
+            <block class="Magento\Catalog\Block\Product\View" name="bundle.back.button" as="backButton" before="-" template="Magento_Bundle::catalog/product/view/backbutton.phtml"/>
+         </container>
+         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Select" name="product.info.bundle.options.select" as="select">
+            <arguments>
+               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+               <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
+            </arguments>
+         </block>
+         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi" name="product.info.bundle.options.multi" as="multi"/>
+         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Radio" name="product.info.bundle.options.radio" as="radio">
+            <arguments>
+               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+               <argument name="validateQuantityViewModel" xsi:type="object">Magento\Bundle\ViewModel\ValidateQuantity</argument>
+            </arguments>
+         </block>
+         <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Checkbox" name="product.info.bundle.options.checkbox" as="checkbox">
+            <arguments>
+               <argument name="tier_price_renderer" xsi:type="object">\Magento\Bundle\Block\DataProviders\OptionPriceRenderer</argument>
+            </arguments>
+         </block>
+      </block>
+   </referenceBlock>
+   <referenceBlock name="product.info.form.options">
+      <container name="bundle.product.options.wrapper" htmlTag="div" htmlClass="bundle-options-wrapper"/>
+   </referenceBlock>
+   <move element="product.info.options.wrapper" destination="bundle.product.options.wrapper" before="-"/>
+   <move element="product.info.options.wrapper.bottom" destination="bundle.product.options.wrapper" after="product.info.options.wrapper"/>
+   <move element="product.price.tier" destination="product.info.options.wrapper.bottom" before="-"/>
+   <referenceBlock name="product.info.options.wrapper.bottom">
+      <block class="Magento\CatalogInventory\Block\Qtyincrements" name="product.info.qtyincrements" before="-" template="Magento_CatalogInventory::qtyincrements.phtml"/>
+      <action method="unsetChild">
+         <argument name="block" xsi:type="string">product.info.addtocart</argument>
+      </action>
+      <action method="setHideRequiredNotice">
+         <argument name="flag" xsi:type="string">1</argument>
+      </action>
+      <action method="unsetChild">
+         <argument name="block" xsi:type="string">product.info.addto</argument>
+      </action>
+   </referenceBlock>
+   <referenceContainer name="content">
+      <container name="bundle.options.container" htmlTag="div" htmlClass="bundle-options-container" after="product.info.media"/>
    </referenceContainer>
    <referenceContainer name="product.info.type">
-      <block class="Magento\GroupedProduct\Block\Product\View\Type\Grouped" name="product.info.grouped.stock" as="product.info.grouped" template="Magento_GroupedProduct::product/view/type/default.phtml"/>
+      <block class="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle" name="product.info.bundle" as="product_type_data" template="Magento_Bundle::catalog/product/view/type/bundle.phtml"/>
+      <container name="product.info.bundle.extra" after="product.info.bundle" as="product_type_data_extra" label="Product Extra Info"/>
    </referenceContainer>
+   <referenceContainer name="product.info.main">
+      <block class="Magento\Catalog\Block\Product\View" name="customize.button" as="customize_button" template="Magento_Bundle::catalog/product/view/customize.phtml" after="product.info.price"/>
+   </referenceContainer>
+   <move element="product.info" destination="bundle.options.container" before="-"/>
+</body>
+</handle><handle id="catalog_product_view_type_simple"><body>
+   <referenceBlock name="product.info.upsell">
+      <action method="setItemLimit">
+         <argument name="type" xsi:type="string">bundle</argument>
+         <argument name="limit" xsi:type="string">4</argument>
+      </action>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_cart_configure_type_bundle"><update handle="catalog_product_view_type_bundle"/>
+<body>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="bundle_cart_configure_head_components" template="Magento_Checkout::js/components.phtml"/>
+   </referenceBlock>
+   <referenceBlock name="product.info.addtocart.bundle">
+      <action method="setTemplate">
+         <argument name="template" xsi:type="string">Magento_Checkout::cart/item/configure/updatecart.phtml</argument>
+      </action>
+   </referenceBlock>
 </body>
 </handle><handle id="checkout_cart_item_renderers"><body>
    <referenceBlock name="checkout.cart.item.renderers">
-      <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" name="checkout.cart.item.renderers.grouped" as="grouped" template="Magento_Checkout::cart/item/default.phtml">
-         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.grouped.actions" as="actions">
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.grouped.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
-            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.grouped.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+      <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.cart.item.renderers.bundle" as="bundle" template="Magento_Checkout::cart/item/default.phtml">
+         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.bundle.actions" as="actions">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.bundle.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.bundle.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
          </block>
       </block>
    </referenceBlock>
 </body>
 </handle><handle id="checkout_onepage_review_item_renderers"><body>
    <referenceBlock name="checkout.onepage.review.item.renderers">
-      <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" name="checkout.onepage.review.item.renderers.grouped" as="grouped" template="Magento_Checkout::onepage/review/item.phtml"/>
+      <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" name="checkout.onepage.review.item.renderers.bundle" as="bundle" template="Magento_Checkout::onepage/review/item.phtml"/>
    </referenceBlock>
 </body>
-</handle><handle id="sales_email_order_creditmemo_renderers" label="Email Creditmemo Items List" design_abstraction="custom"><body>
+</handle><handle id="default"><body>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="bundle_checkout_page_head_components" template="Magento_Bundle::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_creditmemo_renderers"><body>
    <referenceBlock name="sales.email.order.creditmemo.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Email\Items\CreditMemo\Grouped" name="sales.email.order.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::email/items/creditmemo/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/creditmemo/default.phtml"/>
    </referenceBlock>
 </body>
-</handle><handle id="sales_email_order_invoice_renderers" label="Email Invoice Items List" design_abstraction="custom"><body>
+</handle><handle id="sales_email_order_invoice_renderers"><body>
    <referenceBlock name="sales.email.order.invoice.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped" name="sales.email.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::email/items/invoice/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/invoice/default.phtml"/>
    </referenceBlock>
 </body>
-</handle><handle id="sales_email_order_renderers" label="Email Order Items List" design_abstraction="custom"><body>
-   <block name="sales.email.order.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped" name="sales.email.order.renderers.grouped" as="grouped" template="Magento_Sales::email/items/order/default.phtml"/>
-   </block>
+</handle><handle id="sales_email_order_renderers"><body>
+   <referenceBlock name="sales.email.order.renderers">
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/order/default.phtml"/>
+   </referenceBlock>
 </body>
-</handle><handle id="sales_guest_invoice"><body>
-   <referenceBlock name="sales.order.invoice.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+</handle><handle id="sales_email_order_shipment_renderers"><body>
+   <referenceBlock name="sales.email.order.shipment.renderers">
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.email.order.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::email/order/items/shipment/default.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_creditmemo_renderers"><body>
    <referenceBlock name="sales.order.creditmemo.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::order/creditmemo/items/renderer/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/creditmemo/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_invoice_renderers"><body>
    <referenceBlock name="sales.order.invoice.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/invoice/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_item_renderers"><body>
    <referenceBlock name="sales.order.items.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.items.renderers.grouped" as="grouped" template="Magento_Sales::order/items/renderer/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.items.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/items/renderer.phtml"/>
+   </referenceBlock>
+   <referenceBlock name="sales.order.items.renderers.bundle">
+      <arguments>
+         <argument name="view_model" xsi:type="object">Magento\Bundle\ViewModel\Sales\Order\Items\Renderer</argument>
+      </arguments>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_print_creditmemo_renderers"><body>
    <referenceBlock name="sales.order.print.creditmemo.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.print.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::order/creditmemo/items/renderer/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.creditmemo.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/creditmemo/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_print_invoice_renderers"><body>
-   <referenceBlock name="checkout.order.print.invoice.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="checkout.order.print.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+   <referenceBlock name="sales.order.print.invoice.renderers">
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.invoice.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/invoice/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_print_renderers"><body>
    <referenceBlock name="sales.order.print.renderers">
-      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.print.renderers.grouped" as="grouped" template="Magento_Sales::order/items/renderer/default.phtml"/>
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/items/renderer.phtml"/>
    </referenceBlock>
-</body>
-</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
-   <arguments>
-      <argument name="default" xsi:type="array">
-         <item name="adjustments" xsi:type="array">
-            <item name="default" xsi:type="array">
-               <item name="tax" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\TaxAdjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
-               </item>
-               <item name="weee" xsi:type="array">
-                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\Adjustment</item>
-                  <item name="adjustment_render_template" xsi:type="string">Magento_Weee::pricing/adjustment.phtml</item>
-               </item>
-            </item>
-         </item>
-      </argument>
-   </arguments>
-</referenceBlock>
-</layout><handle id="checkout_cart_index"><body>
-   <referenceBlock name="checkout.cart.totals">
+   <referenceBlock name="sales.order.print.renderers.bundle">
       <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="block-totals" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="weee" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Weee/js/view/cart/totals/weee</item>
-                        <item name="config" xsi:type="array">
-                           <item name="title" translate="true" xsi:type="string">FPT</item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
+         <argument name="view_model" xsi:type="object">Magento\Bundle\ViewModel\Sales\Order\Items\Renderer</argument>
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_index_index"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="sidebar" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="summary" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="totals" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="weee" xsi:type="array">
-                                          <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/weee</item>
-                                          <item name="config" xsi:type="array">
-                                             <item name="title" translate="true" xsi:type="string">FPT</item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                                 <item name="cart_items" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="details" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="subtotal" xsi:type="array">
-                                                <item name="children" xsi:type="array">
-                                                   <item name="weee_row_incl_tax" xsi:type="array">
-                                                      <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/item/price/row_incl_tax</item>
-                                                      <item name="displayArea" xsi:type="string">row_incl_tax</item>
-                                                   </item>
-                                                   <item name="weee_row_excl_tax" xsi:type="array">
-                                                      <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/item/price/row_excl_tax</item>
-                                                      <item name="displayArea" xsi:type="string">row_excl_tax</item>
-                                                   </item>
-                                                </item>
-                                             </item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
+</handle><handle id="sales_order_print_shipment_renderers"><body>
+   <referenceBlock name="sales.order.print.shipment.renderers">
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.print.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/shipment/items/renderer.phtml"/>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_item_price_renderers"><body>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.unit.excl" template="Magento_Weee::checkout/onepage/review/item/price/unit_excl_tax.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.unit.incl" template="Magento_Weee::checkout/onepage/review/item/price/unit_incl_tax.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.rowtotal.excl" template="Magento_Weee::checkout/onepage/review/item/price/row_excl_tax.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.rowtotal.incl" template="Magento_Weee::checkout/onepage/review/item/price/row_incl_tax.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Magento_Weee::item/price/unit.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.item.price.row" template="Magento_Weee::item/price/row.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">cart</argument>
-      </arguments>
-   </block>
-</body>
-</handle><handle id="default"><body/>
-</handle><handle id="sales_email_item_price"><body>
-   <referenceBlock name="items">
-      <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_price" template="Magento_Weee::email/items/price/row.phtml">
-         <arguments>
-            <argument name="zone" xsi:type="string">email</argument>
-         </arguments>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_creditmemo_items"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_invoice_items"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_email_order_items"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_creditmemo"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_invoice"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_print"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_printcreditmemo"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_printinvoice"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_guest_view"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_creditmemo"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_invoice"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_item_price"><body>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Weee::item/price/unit.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">sales</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Weee::item/price/row.phtml">
-      <arguments>
-         <argument name="zone" xsi:type="string">sales</argument>
-      </arguments>
-   </block>
-   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total_after_discount" template="Magento_Weee::item/price/total_after_discount.phtml"/>
-</body>
-</handle><handle id="sales_order_print"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_printcreditmemo"><body>
-   <referenceBlock name="creditmemo_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_printinvoice"><body>
-   <referenceBlock name="invoice_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
-   </referenceBlock>
-</body>
-</handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_totals">
-      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
-         <action method="setBeforeCondition">
-            <argument name="condition" xsi:type="string">tax</argument>
-         </action>
-      </block>
+</handle><handle id="sales_order_shipment_renderers"><body>
+   <referenceBlock name="sales.order.shipment.renderers">
+      <block class="Magento\Bundle\Block\Sales\Order\Items\Renderer" name="sales.order.shipment.renderers.bundle" as="bundle" template="Magento_Bundle::sales/order/shipment/items/renderer.phtml"/>
    </referenceBlock>
 </body>
 </handle><handle id="checkout_cart_index"><body>
@@ -4063,6 +3393,263 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       <block class="Magento\PageCache\Block\Javascript" template="Magento_PageCache::javascript.phtml" name="pageCache" as="pageCache"/>
    </referenceContainer>
 </body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="grouped" xsi:type="array">
+         <item name="prices" xsi:type="array">
+            <item name="final_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\Catalog\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_GroupedProduct::product/price/final_price.phtml</item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="catalog_product_rss_feed_renderer_list"><body>
+   <block class="Magento\Framework\Pricing\Render" name="product.price.render.grouped">
+      <arguments>
+         <argument name="price_render_handle" xsi:type="string">catalog_product_prices</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="catalog_product_view_type_grouped"><body>
+   <attribute name="class" value="page-product-grouped"/>
+   <referenceContainer name="product.info.form.content">
+      <block class="Magento\GroupedProduct\Block\Product\View\Type\Grouped" name="product.info.grouped" before="product.info.addtocart" template="Magento_GroupedProduct::product/view/type/grouped.phtml"/>
+      <container name="product.info.grouped.extra" after="product.info.grouped" before="product.info.grouped" as="product_type_data_extra" label="Product Extra Info"/>
+   </referenceContainer>
+   <referenceContainer name="product.info.grouped.extra">
+      <block class="Magento\GroupedProduct\Block\Stockqty\Type\Grouped" name="product.info.grouped.stock-composite" template="Magento_CatalogInventory::stockqty/composite.phtml"/>
+   </referenceContainer>
+   <referenceContainer name="product.info.type">
+      <block class="Magento\GroupedProduct\Block\Product\View\Type\Grouped" name="product.info.grouped.stock" as="product.info.grouped" template="Magento_GroupedProduct::product/view/type/default.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="checkout_cart_item_renderers"><body>
+   <referenceBlock name="checkout.cart.item.renderers">
+      <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" name="checkout.cart.item.renderers.grouped" as="grouped" template="Magento_Checkout::cart/item/default.phtml">
+         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.grouped.actions" as="actions">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.grouped.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.grouped.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_onepage_review_item_renderers"><body>
+   <referenceBlock name="checkout.onepage.review.item.renderers">
+      <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" name="checkout.onepage.review.item.renderers.grouped" as="grouped" template="Magento_Checkout::onepage/review/item.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_creditmemo_renderers" label="Email Creditmemo Items List" design_abstraction="custom"><body>
+   <referenceBlock name="sales.email.order.creditmemo.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Email\Items\CreditMemo\Grouped" name="sales.email.order.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::email/items/creditmemo/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_invoice_renderers" label="Email Invoice Items List" design_abstraction="custom"><body>
+   <referenceBlock name="sales.email.order.invoice.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped" name="sales.email.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::email/items/invoice/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_renderers" label="Email Order Items List" design_abstraction="custom"><body>
+   <block name="sales.email.order.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped" name="sales.email.order.renderers.grouped" as="grouped" template="Magento_Sales::email/items/order/default.phtml"/>
+   </block>
+</body>
+</handle><handle id="sales_guest_invoice"><body>
+   <referenceBlock name="sales.order.invoice.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo_renderers"><body>
+   <referenceBlock name="sales.order.creditmemo.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::order/creditmemo/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice_renderers"><body>
+   <referenceBlock name="sales.order.invoice.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_item_renderers"><body>
+   <referenceBlock name="sales.order.items.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.items.renderers.grouped" as="grouped" template="Magento_Sales::order/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_creditmemo_renderers"><body>
+   <referenceBlock name="sales.order.print.creditmemo.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.print.creditmemo.renderers.grouped" as="grouped" template="Magento_Sales::order/creditmemo/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_invoice_renderers"><body>
+   <referenceBlock name="checkout.order.print.invoice.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="checkout.order.print.invoice.renderers.grouped" as="grouped" template="Magento_Sales::order/invoice/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print_renderers"><body>
+   <referenceBlock name="sales.order.print.renderers">
+      <block class="Magento\GroupedProduct\Block\Order\Item\Renderer\Grouped" name="sales.order.print.renderers.grouped" as="grouped" template="Magento_Sales::order/items/renderer/default.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="authentication" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="captcha" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
+                              <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                              <item name="formId" xsi:type="string">user_login</item>
+                              <item name="configSource" xsi:type="string">checkoutConfig</item>
+                           </item>
+                        </item>
+                     </item>
+                     <item name="steps" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="shipping-step" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="shippingAddress" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="customer-email" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="additional-login-form-fields" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                   <item name="captcha" xsi:type="array">
+                                                      <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
+                                                      <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                                                      <item name="formId" xsi:type="string">user_login</item>
+                                                      <item name="configSource" xsi:type="string">checkoutConfig</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="contact_index_index"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">contact_us</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="customer_account_create"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">user_create</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="customer_account_edit"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">user_edit</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="customer_account_forgotpassword"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">user_forgotpassword</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="customer_account_login"><body>
+   <referenceContainer name="form.additional.info">
+      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+         <action method="setFormId">
+            <argument name="formId" xsi:type="string">user_login</argument>
+         </action>
+         <action method="setImgWidth">
+            <argument name="width" xsi:type="string">230</argument>
+         </action>
+         <action method="setImgHeight">
+            <argument name="width" xsi:type="string">50</argument>
+         </action>
+      </block>
+   </referenceContainer>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="default"><body>
+   <referenceBlock name="authentication-popup">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="authenticationPopup" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="captcha" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
+                        <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
+                        <item name="formId" xsi:type="string">user_login</item>
+                        <item name="configSource" xsi:type="string">checkout</item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
 </handle><handle id="catalog_product_view"><body>
    <referenceBlock name="product.info.addtocart">
       <block name="product.info.addtocart.instantPurchase" class="Magento\InstantPurchase\Block\Button" template="Magento_InstantPurchase::button.phtml" before="-">
@@ -4115,10 +3702,56 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </block>
    </referenceBlock>
 </body>
-</handle><handle id="catalog_product_view_type_configurable"><body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="configurable" xsi:type="array">
+         <item name="prices" xsi:type="array">
+            <item name="tier_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\TierPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/tier_price.phtml</item>
+            </item>
+            <item name="final_price" xsi:type="array">
+               <item name="render_class" xsi:type="string">Magento\ConfigurableProduct\Pricing\Render\FinalPriceBox</item>
+               <item name="render_template" xsi:type="string">Magento_ConfigurableProduct::product/price/final_price.phtml</item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="catalog_product_view_type_configurable"><body>
+   <attribute name="class" value="page-product-configurable"/>
+   <referenceBlock name="head.components">
+      <block class="Magento\Framework\View\Element\Js\Components" name="configurableproduct_product_view_head_components" template="Magento_ConfigurableProduct::js/components.phtml"/>
+   </referenceBlock>
    <referenceContainer name="product.info.type">
-      <block name="product.info.configurable.catalog_inventory_stockqty_default" after="product.info.configurable" before="product.info.sku" template="Magento_InventoryConfigurableProductFrontendUi::product/view/stockQty.phtml"/>
+      <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.configurable" as="product_type_data" template="Magento_Catalog::product/view/type/default.phtml"/>
+      <container name="product.info.configurable.extra" after="product.info.configurable" as="product_type_data_extra" label="Product Extra Info">
+         <block class="Magento\ConfigurableProduct\Block\Stockqty\Type\Configurable" name="product.info.configurable.extra.catalog_inventory_stockqty_composite" template="Magento_CatalogInventory::stockqty/composite.phtml"/>
+      </container>
    </referenceContainer>
+   <referenceBlock name="product.info.options.wrapper">
+      <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="Magento_ConfigurableProduct::product/view/type/options/configurable.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_cart_configure_type_configurable"><head>
+   <link src="Magento_ConfigurableProduct::js/configurable-customer-data.js"/>
+</head>
+<update handle="catalog_product_view_type_configurable"/>
+<body/>
+</handle><handle id="checkout_cart_item_renderers"><body>
+   <referenceBlock name="checkout.cart.item.renderers">
+      <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.cart.item.renderers.configurable" as="configurable" template="Magento_Checkout::cart/item/default.phtml">
+         <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions" name="checkout.cart.item.renderers.configurable.actions" as="actions">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit" name="checkout.cart.item.renderers.configurable.actions.edit" template="Magento_Checkout::cart/item/renderer/actions/edit.phtml"/>
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Remove" name="checkout.cart.item.renderers.configurable.actions.remove" template="Magento_Checkout::cart/item/renderer/actions/remove.phtml"/>
+         </block>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_onepage_review_item_renderers"><body>
+   <referenceBlock name="checkout.onepage.review.item.renderers">
+      <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" name="checkout.onepage.review.item.renderers.configurable" as="configurable" template="Magento_Checkout::onepage/review/item.phtml" cacheable="false"/>
+   </referenceBlock>
 </body>
 </handle><handle id="checkout_index_index"><body>
    <referenceBlock name="checkout.root">
@@ -4777,72 +4410,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="checkout_cart_index"><body>
-   <referenceBlock name="checkout.cart.shipping">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="summary-block-config" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="shipping-rates-validation" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="freeshipping-rates-validation" xsi:type="array">
-                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/freeshipping</item>
-                           </item>
-                           <item name="flatrate-rates-validation" xsi:type="array">
-                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/flatrate</item>
-                           </item>
-                           <item name="tablerate-rates-validation" xsi:type="array">
-                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/tablerate</item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="checkout_index_index"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="steps" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="shipping-step" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="step-config" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="shipping-rates-validation" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="freeshipping-rates-validation" xsi:type="array">
-                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/freeshipping</item>
-                                             </item>
-                                             <item name="flatrate-rates-validation" xsi:type="array">
-                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/flatrate</item>
-                                             </item>
-                                             <item name="tablerate-rates-validation" xsi:type="array">
-                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/tablerate</item>
-                                             </item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
 </handle><handle id="robots_index_index" layout="robots"><body>
    <referenceContainer name="root">
       <block class="Magento\Sitemap\Block\Robots" name="sitemapRobotsLinks"/>
@@ -4908,166 +4475,6 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       <block class="Magento\Vault\Block\Customer\CreditCards" name="vault.cards.list" cacheable="false" template="Magento_Vault::cards_list.phtml"/>
       <block class="Magento\Vault\Block\Customer\AccountTokens" name="vault.token.list" cacheable="false" template="Magento_Vault::token_list.phtml"/>
    </referenceContainer>
-</body>
-</handle><handle id="checkout_index_index"><body>
-   <referenceBlock name="checkout.root">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="authentication" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="captcha" xsi:type="array">
-                              <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
-                              <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
-                              <item name="formId" xsi:type="string">user_login</item>
-                              <item name="configSource" xsi:type="string">checkoutConfig</item>
-                           </item>
-                        </item>
-                     </item>
-                     <item name="steps" xsi:type="array">
-                        <item name="children" xsi:type="array">
-                           <item name="shipping-step" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="shippingAddress" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="customer-email" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="additional-login-form-fields" xsi:type="array">
-                                                <item name="children" xsi:type="array">
-                                                   <item name="captcha" xsi:type="array">
-                                                      <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
-                                                      <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
-                                                      <item name="formId" xsi:type="string">user_login</item>
-                                                      <item name="configSource" xsi:type="string">checkoutConfig</item>
-                                                   </item>
-                                                </item>
-                                             </item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
-                           </item>
-                        </item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
-</body>
-</handle><handle id="contact_index_index"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">contact_us</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">230</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_account_create"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">user_create</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">230</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_account_edit"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">user_edit</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">230</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_account_forgotpassword"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">user_forgotpassword</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">230</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="customer_account_login"><body>
-   <referenceContainer name="form.additional.info">
-      <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
-         <action method="setFormId">
-            <argument name="formId" xsi:type="string">user_login</argument>
-         </action>
-         <action method="setImgWidth">
-            <argument name="width" xsi:type="string">230</argument>
-         </action>
-         <action method="setImgHeight">
-            <argument name="width" xsi:type="string">50</argument>
-         </action>
-      </block>
-   </referenceContainer>
-   <referenceBlock name="head.components">
-      <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components" template="Magento_Captcha::js/components.phtml"/>
-   </referenceBlock>
-</body>
-</handle><handle id="default"><body>
-   <referenceBlock name="authentication-popup">
-      <arguments>
-         <argument name="jsLayout" xsi:type="array">
-            <item name="components" xsi:type="array">
-               <item name="authenticationPopup" xsi:type="array">
-                  <item name="children" xsi:type="array">
-                     <item name="captcha" xsi:type="array">
-                        <item name="component" xsi:type="string">Magento_Captcha/js/view/checkout/loginCaptcha</item>
-                        <item name="displayArea" xsi:type="string">additional-login-form-fields</item>
-                        <item name="formId" xsi:type="string">user_login</item>
-                        <item name="configSource" xsi:type="string">checkout</item>
-                     </item>
-                  </item>
-               </item>
-            </item>
-         </argument>
-      </arguments>
-   </referenceBlock>
 </body>
 </handle><handle id="catalog_category_view"><body>
    <referenceContainer name="sidebar.additional">
@@ -5639,6 +5046,59 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
                   <item name="children" xsi:type="array">
                      <item name="steps" xsi:type="array">
                         <item name="children" xsi:type="array">
+                           <item name="billing-step" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="payment" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="payments-list" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="before-place-order" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                   <item name="agreements" xsi:type="array">
+                                                      <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/checkout-agreements</item>
+                                                      <item name="sortOrder" xsi:type="string">100</item>
+                                                      <item name="displayArea" xsi:type="string">before-place-order</item>
+                                                      <item name="dataScope" xsi:type="string">checkoutAgreements</item>
+                                                      <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                       <item name="additional-payment-validators" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="agreements-validator" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/agreement-validation</item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="multishipping_checkout_overview"><body>
+   <referenceBlock name="checkout_overview">
+      <block class="Magento\CheckoutAgreements\Block\Agreements" name="checkout.multishipping.agreements" as="agreements" template="Magento_CheckoutAgreements::additional_agreements.phtml"/>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="steps" xsi:type="array">
+                        <item name="children" xsi:type="array">
                            <item name="shipping-step" xsi:type="array">
                               <item name="children" xsi:type="array">
                                  <item name="shippingAddress" xsi:type="array">
@@ -6144,43 +5604,23 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       <block class="Magento\Rss\Block\Feeds" name="rss.feeds"/>
    </referenceContainer>
 </body>
-</handle><handle id="checkout_index_index"><body>
-   <referenceBlock name="checkout.root">
+</handle><handle id="checkout_cart_index"><body>
+   <referenceBlock name="checkout.cart.shipping">
       <arguments>
          <argument name="jsLayout" xsi:type="array">
             <item name="components" xsi:type="array">
-               <item name="checkout" xsi:type="array">
+               <item name="summary-block-config" xsi:type="array">
                   <item name="children" xsi:type="array">
-                     <item name="steps" xsi:type="array">
+                     <item name="shipping-rates-validation" xsi:type="array">
                         <item name="children" xsi:type="array">
-                           <item name="billing-step" xsi:type="array">
-                              <item name="children" xsi:type="array">
-                                 <item name="payment" xsi:type="array">
-                                    <item name="children" xsi:type="array">
-                                       <item name="payments-list" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="paypal-captcha" xsi:type="array">
-                                                <item name="component" xsi:type="string">uiComponent</item>
-                                                <item name="displayArea" xsi:type="string">paypal-captcha</item>
-                                                <item name="dataScope" xsi:type="string">paypal-captcha</item>
-                                                <item name="provider" xsi:type="string">checkoutProvider</item>
-                                                <item name="config" xsi:type="array">
-                                                   <item name="template" xsi:type="string">Magento_Checkout/payment/before-place-order</item>
-                                                </item>
-                                                <item name="children" xsi:type="array">
-                                                   <item name="captcha" xsi:type="array">
-                                                      <item name="component" xsi:type="string">Magento_PaypalCaptcha/js/view/checkout/paymentCaptcha</item>
-                                                      <item name="displayArea" xsi:type="string">paypal-captcha</item>
-                                                      <item name="formId" xsi:type="string">co-payment-form</item>
-                                                      <item name="configSource" xsi:type="string">checkoutConfig</item>
-                                                   </item>
-                                                </item>
-                                             </item>
-                                          </item>
-                                       </item>
-                                    </item>
-                                 </item>
-                              </item>
+                           <item name="freeshipping-rates-validation" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/freeshipping</item>
+                           </item>
+                           <item name="flatrate-rates-validation" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/flatrate</item>
+                           </item>
+                           <item name="tablerate-rates-validation" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/tablerate</item>
                            </item>
                         </item>
                      </item>
@@ -6200,29 +5640,20 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
                   <item name="children" xsi:type="array">
                      <item name="steps" xsi:type="array">
                         <item name="children" xsi:type="array">
-                           <item name="billing-step" xsi:type="array">
+                           <item name="shipping-step" xsi:type="array">
                               <item name="children" xsi:type="array">
-                                 <item name="payment" xsi:type="array">
+                                 <item name="step-config" xsi:type="array">
                                     <item name="children" xsi:type="array">
-                                       <item name="payments-list" xsi:type="array">
+                                       <item name="shipping-rates-validation" xsi:type="array">
                                           <item name="children" xsi:type="array">
-                                             <item name="before-place-order" xsi:type="array">
-                                                <item name="children" xsi:type="array">
-                                                   <item name="agreements" xsi:type="array">
-                                                      <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/checkout-agreements</item>
-                                                      <item name="sortOrder" xsi:type="string">100</item>
-                                                      <item name="displayArea" xsi:type="string">before-place-order</item>
-                                                      <item name="dataScope" xsi:type="string">checkoutAgreements</item>
-                                                      <item name="provider" xsi:type="string">checkoutProvider</item>
-                                                   </item>
-                                                </item>
+                                             <item name="freeshipping-rates-validation" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/freeshipping</item>
                                              </item>
-                                          </item>
-                                       </item>
-                                       <item name="additional-payment-validators" xsi:type="array">
-                                          <item name="children" xsi:type="array">
-                                             <item name="agreements-validator" xsi:type="array">
-                                                <item name="component" xsi:type="string">Magento_CheckoutAgreements/js/view/agreement-validation</item>
+                                             <item name="flatrate-rates-validation" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/flatrate</item>
+                                             </item>
+                                             <item name="tablerate-rates-validation" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_OfflineShipping/js/view/shipping-rates-validation/tablerate</item>
                                              </item>
                                           </item>
                                        </item>
@@ -6239,9 +5670,85 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="multishipping_checkout_overview"><body>
-   <referenceBlock name="checkout_overview">
-      <block class="Magento\CheckoutAgreements\Block\Agreements" name="checkout.multishipping.agreements" as="agreements" template="Magento_CheckoutAgreements::additional_agreements.phtml"/>
+</handle><handle id="sales_email_order_creditmemo_items"><body>
+   <referenceBlock name="items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_invoice_items"><body>
+   <referenceBlock name="items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_items"><body>
+   <referenceBlock name="items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_creditmemo"><body>
+   <referenceBlock name="creditmemo_items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_invoice"><body>
+   <referenceBlock name="invoice_items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_print"><body>
+   <referenceBlock name="order_items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_printcreditmemo"><body>
+   <referenceBlock name="sales.order.print.creditmemo">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_printinvoice"><body>
+   <referenceBlock name="sales.order.print.invoice">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_view"><body>
+   <referenceBlock name="order_items">
+      <arguments>
+         <argument name="configurable_renderer_type_resolver" xsi:type="object">
+                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
+                </argument>
+      </arguments>
    </referenceBlock>
 </body>
 </handle><handle id="sendfriend_product_send" layout="1column"><body>
@@ -6356,6 +5863,248 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
          </arguments>
       </block>
    </referenceBlock>
+</body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="default" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="default" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+      <argument name="bundle" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="bundle_option" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Tax\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment/bundle.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="checkout_cart_index"><body>
+   <referenceBlock name="checkout.cart.shipping">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-summary" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="block-rates" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="price" xsi:type="array">
+                              <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
+                              <item name="displayArea" xsi:type="string">price</item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+   <referenceBlock name="checkout.cart.totals">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-totals" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="subtotal" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/subtotal</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">Magento_Tax/checkout/summary/subtotal</item>
+                           <item name="excludingTaxMessage" translate="true" xsi:type="string">(Excl. Tax)</item>
+                           <item name="includingTaxMessage" translate="true" xsi:type="string">(Incl. Tax)</item>
+                        </item>
+                     </item>
+                     <item name="shipping" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/shipping</item>
+                        <item name="sortOrder" xsi:type="string">20</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/shipping</item>
+                           <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
+                           <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
+                        </item>
+                     </item>
+                     <item name="before_grandtotal" xsi:type="array">
+                        <item name="component" xsi:type="string">uiComponent</item>
+                        <item name="sortOrder" xsi:type="string">30</item>
+                        <item name="children" xsi:type="array">
+                                        
+                                    </item>
+                     </item>
+                     <item name="tax" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/tax</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/tax</item>
+                           <item name="title" translate="true" xsi:type="string">Tax</item>
+                        </item>
+                     </item>
+                     <item name="grand-total" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/cart/totals/grand-total</item>
+                        <item name="config" xsi:type="array">
+                           <item name="template" xsi:type="string">Magento_Tax/checkout/cart/totals/grand-total</item>
+                           <item name="exclTaxLabel" translate="true" xsi:type="string">Order Total Excl. Tax</item>
+                           <item name="inclTaxLabel" translate="true" xsi:type="string">Order Total Incl. Tax</item>
+                           <item name="title" translate="true" xsi:type="string">Order Total</item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_cart_sidebar_total_renderers"><body>
+   <referenceBlock name="minicart">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="minicart_content" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="subtotal.container" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="subtotal" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="subtotal.totals" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/minicart/subtotal/totals</item>
+                                    <item name="config" xsi:type="array">
+                                       <item name="template" xsi:type="string">Magento_Tax/checkout/minicart/subtotal/totals</item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="steps" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="shipping-step" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="shippingAddress" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="price" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/shipping_method/price</item>
+                                          <item name="displayArea" xsi:type="string">price</item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                     <item name="sidebar" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="summary" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="totals" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="subtotal" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/subtotal</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
+                                             <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
+                                          </item>
+                                       </item>
+                                       <item name="shipping" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/shipping</item>
+                                          <item name="sortOrder" xsi:type="string">20</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="excludingTaxMessage" translate="true" xsi:type="string">Excl. Tax</item>
+                                             <item name="includingTaxMessage" translate="true" xsi:type="string">Incl. Tax</item>
+                                          </item>
+                                       </item>
+                                       <item name="before_grandtotal" xsi:type="array">
+                                          <item name="component" xsi:type="string">uiComponent</item>
+                                          <item name="sortOrder" xsi:type="string">30</item>
+                                          <item name="children" xsi:type="array">
+                                                                
+                                                            </item>
+                                       </item>
+                                       <item name="tax" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/tax</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="title" translate="true" xsi:type="string">Tax</item>
+                                          </item>
+                                       </item>
+                                       <item name="grand-total" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/grand-total</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="exclTaxLabel" translate="true" xsi:type="string">Order Total Excl. Tax</item>
+                                             <item name="inclTaxLabel" translate="true" xsi:type="string">Order Total Incl. Tax</item>
+                                             <item name="basicCurrencyMessage" translate="true" xsi:type="string">You will be charged for</item>
+                                             <item name="title" translate="true" xsi:type="string">Order Total</item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                                 <item name="cart_items" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="details" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="subtotal" xsi:type="array">
+                                                <item name="component" xsi:type="string">Magento_Tax/js/view/checkout/summary/item/details/subtotal</item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_item_price_renderers"><body>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Magento_Tax::item/price/unit.phtml"/>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="checkout.item.price.row" template="Magento_Tax::item/price/row.phtml"/>
+</body>
+</handle><handle id="sales_email_item_price"><body>
+   <referenceBlock name="items">
+      <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_price" template="Magento_Tax::email/items/price/row.phtml">
+         <arguments>
+            <argument name="zone" xsi:type="string">email</argument>
+         </arguments>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_order_item_price"><body>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Tax::item/price/unit.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">sales</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Tax::item/price/row.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">sales</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Tax\Block\Item\Price\Renderer" name="item_row_total_after_discount" template="Magento_Tax::item/price/total_after_discount.phtml"/>
 </body>
 </handle><handle id="default"><body>
    <referenceBlock name="head.additional">
@@ -6485,85 +6234,336 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       </arguments>
    </referenceBlock>
 </body>
-</handle><handle id="sales_email_order_creditmemo_items"><body>
-   <referenceBlock name="items">
+</handle><handle id="catalog_product_view_type_configurable"><body>
+   <referenceContainer name="product.info.type">
+      <block name="product.info.configurable.catalog_inventory_stockqty_default" after="product.info.configurable" before="product.info.sku" template="Magento_InventoryConfigurableProductFrontendUi::product/view/stockQty.phtml"/>
+   </referenceContainer>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
       <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="steps" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="billing-step" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="payment" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="payments-list" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="paypal-captcha" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="displayArea" xsi:type="string">paypal-captcha</item>
+                                                <item name="dataScope" xsi:type="string">paypal-captcha</item>
+                                                <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                <item name="config" xsi:type="array">
+                                                   <item name="template" xsi:type="string">Magento_Checkout/payment/before-place-order</item>
+                                                </item>
+                                                <item name="children" xsi:type="array">
+                                                   <item name="captcha" xsi:type="array">
+                                                      <item name="component" xsi:type="string">Magento_PaypalCaptcha/js/view/checkout/paymentCaptcha</item>
+                                                      <item name="displayArea" xsi:type="string">paypal-captcha</item>
+                                                      <item name="formId" xsi:type="string">co-payment-form</item>
+                                                      <item name="configSource" xsi:type="string">checkoutConfig</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
       </arguments>
+   </referenceBlock>
+</body>
+</handle><layout id="catalog_product_prices"><referenceBlock name="render.product.prices">
+   <arguments>
+      <argument name="default" xsi:type="array">
+         <item name="adjustments" xsi:type="array">
+            <item name="default" xsi:type="array">
+               <item name="tax" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\TaxAdjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Tax::pricing/adjustment.phtml</item>
+               </item>
+               <item name="weee" xsi:type="array">
+                  <item name="adjustment_render_class" xsi:type="string">Magento\Weee\Pricing\Render\Adjustment</item>
+                  <item name="adjustment_render_template" xsi:type="string">Magento_Weee::pricing/adjustment.phtml</item>
+               </item>
+            </item>
+         </item>
+      </argument>
+   </arguments>
+</referenceBlock>
+</layout><handle id="checkout_cart_index"><body>
+   <referenceBlock name="checkout.cart.totals">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="block-totals" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="weee" xsi:type="array">
+                        <item name="component" xsi:type="string">Magento_Weee/js/view/cart/totals/weee</item>
+                        <item name="config" xsi:type="array">
+                           <item name="title" translate="true" xsi:type="string">FPT</item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_index_index"><body>
+   <referenceBlock name="checkout.root">
+      <arguments>
+         <argument name="jsLayout" xsi:type="array">
+            <item name="components" xsi:type="array">
+               <item name="checkout" xsi:type="array">
+                  <item name="children" xsi:type="array">
+                     <item name="sidebar" xsi:type="array">
+                        <item name="children" xsi:type="array">
+                           <item name="summary" xsi:type="array">
+                              <item name="children" xsi:type="array">
+                                 <item name="totals" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="weee" xsi:type="array">
+                                          <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/weee</item>
+                                          <item name="config" xsi:type="array">
+                                             <item name="title" translate="true" xsi:type="string">FPT</item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                                 <item name="cart_items" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                       <item name="details" xsi:type="array">
+                                          <item name="children" xsi:type="array">
+                                             <item name="subtotal" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                   <item name="weee_row_incl_tax" xsi:type="array">
+                                                      <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/item/price/row_incl_tax</item>
+                                                      <item name="displayArea" xsi:type="string">row_incl_tax</item>
+                                                   </item>
+                                                   <item name="weee_row_excl_tax" xsi:type="array">
+                                                      <item name="component" xsi:type="string">Magento_Weee/js/view/checkout/summary/item/price/row_excl_tax</item>
+                                                      <item name="displayArea" xsi:type="string">row_excl_tax</item>
+                                                   </item>
+                                                </item>
+                                             </item>
+                                          </item>
+                                       </item>
+                                    </item>
+                                 </item>
+                              </item>
+                           </item>
+                        </item>
+                     </item>
+                  </item>
+               </item>
+            </item>
+         </argument>
+      </arguments>
+   </referenceBlock>
+</body>
+</handle><handle id="checkout_item_price_renderers"><body>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.unit.excl" template="Magento_Weee::checkout/onepage/review/item/price/unit_excl_tax.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.unit.incl" template="Magento_Weee::checkout/onepage/review/item/price/unit_incl_tax.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.rowtotal.excl" template="Magento_Weee::checkout/onepage/review/item/price/row_excl_tax.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.onepage.review.item.price.rowtotal.incl" template="Magento_Weee::checkout/onepage/review/item/price/row_incl_tax.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Magento_Weee::item/price/unit.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="checkout.item.price.row" template="Magento_Weee::item/price/row.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">cart</argument>
+      </arguments>
+   </block>
+</body>
+</handle><handle id="default"><body/>
+</handle><handle id="sales_email_item_price"><body>
+   <referenceBlock name="items">
+      <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_price" template="Magento_Weee::email/items/price/row.phtml">
+         <arguments>
+            <argument name="zone" xsi:type="string">email</argument>
+         </arguments>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_email_order_creditmemo_items"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_email_order_invoice_items"><body>
-   <referenceBlock name="items">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_email_order_items"><body>
-   <referenceBlock name="items">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_creditmemo"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_invoice"><body>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_print"><body>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_printcreditmemo"><body>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_printinvoice"><body>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
+   </referenceBlock>
+</body>
+</handle><handle id="sales_guest_view"><body>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_creditmemo"><body>
-   <referenceBlock name="creditmemo_items">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_invoice"><body>
-   <referenceBlock name="invoice_items">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
-</handle><handle id="sales_order_print"><body>
-   <referenceBlock name="order_items">
+</handle><handle id="sales_order_item_price"><body>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_unit_price" template="Magento_Weee::item/price/unit.phtml">
       <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
+         <argument name="zone" xsi:type="string">sales</argument>
       </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total" template="Magento_Weee::item/price/row.phtml">
+      <arguments>
+         <argument name="zone" xsi:type="string">sales</argument>
+      </arguments>
+   </block>
+   <block class="Magento\Weee\Block\Item\Price\Renderer" name="item_row_total_after_discount" template="Magento_Weee::item/price/total_after_discount.phtml"/>
+</body>
+</handle><handle id="sales_order_print"><body>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_printcreditmemo"><body>
-   <referenceBlock name="sales.order.print.creditmemo">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="creditmemo_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_cm_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_printinvoice"><body>
-   <referenceBlock name="sales.order.print.invoice">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="invoice_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_inv_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="sales_order_view"><body>
-   <referenceBlock name="order_items">
-      <arguments>
-         <argument name="configurable_renderer_type_resolver" xsi:type="object">
-                    Magento\ConfigurableProductSales\ViewModel\ItemRendererTypeResolver
-                </argument>
-      </arguments>
+   <referenceBlock name="order_totals">
+      <block class="Magento\Weee\Block\Sales\Order\Totals" name="weee_ord_totals">
+         <action method="setBeforeCondition">
+            <argument name="condition" xsi:type="string">tax</argument>
+         </action>
+      </block>
    </referenceBlock>
 </body>
 </handle><handle id="catalog_category_view"><body>
@@ -6920,6 +6920,11 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
       <block class="Magento\Wishlist\Block\Share\Wishlist" name="customer.wishlist" template="Magento_Wishlist::shared.phtml" cacheable="false"/>
    </referenceContainer>
 </body>
+</handle><handle id="faq_index_index" layout="1column"><body>
+   <referenceContainer name="content">
+      <block class="Magebit\Faq\Block\QuestionList" name="faq_index_index" template="Magebit_Faq::question-list.phtml" cacheable="false"/>
+   </referenceContainer>
+</body>
 </handle><handle id="moduletest_firstlayout_page_view"><body>
    <referenceContainer name="content">
       <block class="Magento\Framework\View\Element\Template" name="moduletest.first.layout.example" template="ModuleTest_FirstLayout::example.phtml">
@@ -7213,6 +7218,7 @@ a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1706186618;s:6:"expire";i:1737722618;s:4:"t
    <referenceBlock name="view.addto.wishlist" remove="true"/>
    <referenceBlock name="product.info.details" remove="true"/>
    <referenceBlock name="product.info.overview" remove="true"/>
+   <referenceBlock name="product.info.simple" remove="true"/>
    <move element="product.attributes" destination="product.info.main" after="product.info.price"/>
    <move element="product.info.overview" destination="product.info.main" after="product.info.price"/>
    <move element="product.info.upsell" destination="product.info.main" after="product.info.addtocart"/>

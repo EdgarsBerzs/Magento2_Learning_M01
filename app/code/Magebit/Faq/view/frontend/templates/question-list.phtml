@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use Magento\Framework\Escaper;
+
+/** @var Escaper $escaper */
+/** @var Template $block */
+
+$questions = $block->getQuestions();
+
+?>
+<div class="faq-block">
+    <h1>Frequently Asked Questions</h1>
+    <div id="accordion" data-mage-init='{
+            "accordion":{
+                "collapsible": true,
+                "openedState": "active",
+                "multipleCollapsible": true
+            }}'>
+        <?php foreach ($questions as $question): ?>
+        <div data-role="collapsible">
+            <div class="question-tab" data-role="trigger">
+                <span><?php echo $question->getQuestion() ?></span>
+            </div>
+            <div class="answer-tab" data-role="content">
+                <?php echo $question->getAnswer() ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</div>

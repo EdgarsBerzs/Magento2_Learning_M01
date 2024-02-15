@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="Faq" engine="innodb" resource="default">
+    <table name="magebit_faq" engine="innodb" resource="default">
         <column name="id" xsi:type="int" unsigned="true" nullable="false" identity="true" comment="Faq ID"/>
         <column name="question" xsi:type="text" nullable="false" comment="Question Text"/>
         <column name="answer" xsi:type="text" nullable="false" comment="Answer Text"/>
